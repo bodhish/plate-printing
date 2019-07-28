@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: :login
+  before_action :authenticate_user!
 
-  def dashboard; end
-
-  def login; end
+  def dashboard;
+  end
 end
