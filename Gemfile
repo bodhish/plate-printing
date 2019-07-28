@@ -34,6 +34,11 @@ gem 'devise'
 # SSO Google
 gem 'omniauth-google-oauth2'
 
+gem 'bootstrap-sass'
+gem 'font-awesome-rails'
+gem "jquery-rails"
+gem 'popper_js', '~> 1.12.9'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

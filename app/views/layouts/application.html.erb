@@ -10,13 +10,19 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <%= javascript_include_tag "application" %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'shared/flashes', media: 'all' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'shared/flashes', 'data-turbolinks-track': 'reload', nonce: true %>
+  <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" %>
 </head>
 
 <body>
-<%= yield %>
+
+<div class="wrapper ">
+  <%= render 'layouts/side_nav' %>
+  <%= yield %>
+</div>
 </body>
 </html>
