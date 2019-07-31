@@ -1,0 +1,2 @@
+class PlateDimension < ApplicationRecord
+end
