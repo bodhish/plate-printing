@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_185228) do
+ActiveRecord::Schema.define(version: 2019_07_30_183048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "jobs", force: :cascade do |t|
     t.string "name"
@@ -22,6 +28,23 @@ ActiveRecord::Schema.define(version: 2019_07_28_185228) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "plate_dimensions", force: :cascade do |t|
+    t.string "dimension"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "print_jobs", force: :cascade do |t|
+    t.integer "ref_no"
+    t.string "name"
+    t.bigint "customer_id", null: false
+    t.text "comments"
+    t.integer "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_print_jobs_on_customer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,4 +56,5 @@ ActiveRecord::Schema.define(version: 2019_07_28_185228) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "print_jobs", "customers"
 end
