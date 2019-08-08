@@ -1,4 +1,4 @@
-class JobsController < HomeController
+class PrintJobsController < HomeController
   def new
 
   end
@@ -12,6 +12,6 @@ class JobsController < HomeController
   end
 
   def show
-    
+
   end
 end

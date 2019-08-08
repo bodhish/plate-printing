@@ -21,19 +21,18 @@ ActiveRecord::Schema.define(version: 2019_07_30_183048) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "jobs", force: :cascade do |t|
-    t.string "name"
-    t.integer "number"
-    t.text "comments"
-    t.integer "status", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "plate_dimensions", force: :cascade do |t|
     t.string "dimension"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "plate_jobs", force: :cascade do |t|
+    t.bigint "print_job_id"
+    t.bigint "plate_dimension_id"
+    t.boolean "is_wasted", default: false
+    t.index ["plate_dimension_id", "print_job_id"], name: "index_plate_jobs_on_plate_dimension_id_and_print_job_id", unique: true
+    t.index ["print_job_id"], name: "index_plate_jobs_on_print_job_id"
   end
 
   create_table "print_jobs", force: :cascade do |t|
@@ -56,5 +55,7 @@ ActiveRecord::Schema.define(version: 2019_07_30_183048) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "plate_jobs", "plate_dimensions"
+  add_foreign_key "plate_jobs", "print_jobs"
   add_foreign_key "print_jobs", "customers"
 end
