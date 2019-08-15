@@ -26,21 +26,13 @@
 <body class="bg-gray-100">
 <section id="header" class="header">
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light navbar-container">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-container d-flex justify-content-between">
       <a class="navbar-brand" href="<%= root_path %>">
         <%= image_tag("logo.png", :alt => "VERTECHS IMAGING", class: "site-logo") %>
       </a>
-
-      <% unless @hide_nav_links %>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#nav-links__navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar top-bar"></span>
-          <span class="icon-bar middle-bar"></span>
-          <span class="icon-bar bottom-bar"></span>
-        </button>
+      <% if current_user %>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-secondar" %>
       <% end %>
-
-      <%= render 'layouts/nav' %>
     </nav>
   </div>
 </section>
