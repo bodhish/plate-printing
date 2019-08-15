@@ -1,90 +1,16 @@
-<div class="text-2xl font-bold mt-10">
+<% presenter = ::PrintJobs::NewPresenter.new(self) %>
+<div class="font-weight-bold h1">
   New Job
 </div>
 <div class="mt-4 border rounded shadow-lg p-4 bg-white">
-  <form class="">
-    <div class="max-w-2xl p-6 mx-auto">
-      <div>
-        <label
-          class="inline-block tracking-wide text-sm font-semibold mb-2"
-          for="reference_number">
-          Reference Number
-        </label>
-        <span>*</span>
-        <input
-          class="appearance-none block w-full bg-white border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="reference_number"
-          type_="email"
-          placeholder="Add reference number here"
-          required
-          />
-      </div>
-      <div class="mt-5">
-        <label
-          class="inline-block tracking-wide text-sm font-semibold mb-2"
-          for="name">
-          Job Name
-        </label>
-        <span>*</span>
-        <input
-          class="appearance-none block w-full bg-white border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="name"
-          type="text"
-          placeholder="Add name here"
-          required
-          />
-      </div>
-      <div class="mt-5">
-        <label
-          class="inline-block tracking-wide text-sm font-semibold mb-2"
-          for="customer_id">
-          Customer
-        </label>
-        <span>*</span>
-        <div class="w-full text-xl">
-          <select>
-            <option selected="selected" disabled value=0>Select a customer</option>
-            <% Customer.all.map do |customer| %>
-              <option value=<%= customer.id %>><%= customer.name %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-      <div class="mt-5">
-        <label
-          class="inline-block tracking-wide text-sm font-semibold mb-2"
-          for="plate_id">
-          Select Plate
-        </label>
-        <span>*</span>
-        <div class="w-full text-xl">
-          <select>
-            <option selected="selected" disabled value=0>Select a Plate</option>
-            <% PlateDimension.all.map do |plate| %>
-              <option value=<%= plate.id %>><%= plate.dimension %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-      <div class="mt-5">
-        <label
-          class="inline-block tracking-wide text-sm font-semibold mb-2"
-          for="comments">
-          Comments
-        </label>
-        <textarea
-          class="appearance-none block w-full bg-white border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="comments"
-          type="text"
-          placeholder="Add your comments"
-          required
-        ></textarea>
-      </div>
-      <div class="mt-5">
-        <button class="w-full btn btn-large btn-primary">
-          Submit
-        </button>
-      </div>
-    </div>
-  </form>
+  <%= bootstrap_form_for(@print_job, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
+    <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255 %>
+    <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
+    <%= f.select :customer_id, presenter.customers, { label: "Select a customer", selected: 0 } %>
+    <%= f.fields_for :plate_job do |p| %>
+      <%= p.select :plate_dimension_id, presenter.plate_dimensions, { label: "Select a plate", selected: 0 } %>
+    <% end %>
+    <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
+    <%= f.submit "Submit" %>
+  <% end %>
 </div>
