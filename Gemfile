@@ -31,6 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Devise to manage user model
 gem 'devise'
 
+gem 'activeadmin'
+
 # SSO Google
 gem 'omniauth-google-oauth2'
 
