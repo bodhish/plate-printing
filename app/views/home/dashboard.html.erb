@@ -1,74 +1,80 @@
 <% presenter = ::Home::DashboardPresenter.new(self) %>
-<div class="mt-10">
-  <div class="d-flex justify-content-between ">
-    <h1 class="">
-      Dashboard
-    </h1>
+<div class="">
+  <div class="flex flex-col md:flex-row justify-content-between ">
+    <div class="font-bold text-4xl text-gray-600">
+      Welcome
+    </div>
     <div class="d-flex">
       <div class="mr-2">
-        <%= button_to "All Jobs", print_jobs_path, method: :get, class: "btn btn-primary text-white" %>
+        <%= button_to "All Jobs", print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white" %>
       </div>
       <div>
-        <%= button_to "Create a New Job", new_print_job_path, method: :get, class: "btn btn-primary text-white" %>
+        <%= button_to "Create a New Job", new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white" %>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Total Jobs</h4>
-          <p class="card-text">Jobs in the last 30 days</p>
-          <h1><%= PrintJob.count %></h1>
+  <div class="flex-col flex md:flex-row md:justify-between mx-auto">
+    <div class="md:w-1/4 mt-2">
+      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-purple-200">
+        <div class="flex justify-between items-center px-4 py-2">
+          <div>
+            <div class="text-xl font-semibold text-purple-600">Total Jobs</div>
+            <p class="text-xs text-gray-600">Jobs in the last 30 days</p>
+          </div>
+          <div class="text-5xl font-bold text-purple-600"><%= PrintJob.count %></div>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Plates used</h4>
-          <p class="card-text">Plates used in the last 30 days</p>
-          <h1><%= PlateJob.count %></h1>
+    <div class="md:w-1/4 mt-2">
+      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-teal-200">
+        <div class="flex justify-between items-center px-4 py-2">
+          <div>
+            <div class="text-xl font-semibold text-teal-600">Plates used</div>
+            <p class="text-xs text-gray-600">Plates used in the last 30 days</p>
+          </div>
+          <div class="text-5xl font-bold text-teal-600"><%= PlateJob.count %></div>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Plates wasted</h4>
-          <p class="card-text">Plates waster in the last 30 days</p>
-          <h1><%= PlateJob.where(is_wasted: true).count %></h1>
+    <div class="md:w-1/4 mt-2">
+      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-red-200">
+        <div class="flex justify-between items-center px-4 py-2">
+          <div>
+            <div class="text-xl font-semibold text-red-600">Plates wasted</div>
+            <p class="text-xs text-gray-600">Plates wasted in the last 30 days</p>
+          </div>
+          <div class="text-5xl font-bold text-red-600"><%= PlateJob.where(is_wasted: true).count %></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="mt-4 ">
-    <table class="table table-striped border">
-      <thead class="thead-dark">
+  <div class="mt-4 overflow-x-scroll">
+    <table class="table shadow-sm border-2 table-borderless border-indigo-700">
+      <thead class="bg-indigo-700 text-white md:text-sm text-xs">
       <tr>
-        <th scope="col">Reference Number</th>
+        <th scope="col">Job ID</th>
         <th scope="col">Name</th>
-        <th scope="col">Customer Name</th>
+        <th scope="col">Customer</th>
         <th scope="col">Plate</th>
         <th scope="col">Status</th>
         <th scope="col">Actions</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody class="text-gray-700 md:text-sm text-xs">
       <% presenter.jobs.map do |print_job| %>
         <tr>
-          <td><%= print_job.ref_no %></td>
+          <td>#<%= print_job.ref_no %></td>
           <td><%= print_job.name %></td>
           <td> <%= print_job.customer.name %></td>
           <td> <%= print_job.plate_dimensions.first.dimension %></td>
           <td> <%= print_job.state %></td>
           <td>
           <span>
-          <%= link_to "Show", print_job_path(print_job) %>
+          <%= link_to "Details", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %>
           </span>
             <span class="pl-2">
-          <%= link_to "Edit", edit_print_job_path(print_job) %>
+          <%= link_to "Edit", edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %>
           </span>
           </td>
         </tr>
