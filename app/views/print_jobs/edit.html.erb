@@ -1,16 +1,16 @@
-<% presenter = ::PrintJobs::NewPresenter.new(self) %>
+<% presenter = ::PrintJobs::EditPresenter.new(self, @print_job) %>
 <div class="font-weight-bold h1">
-  New Job
+  Edit Job
 </div>
 <div class="mt-4 border rounded shadow-lg p-4 bg-white">
   <%= bootstrap_form_for(@print_job, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
     <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255 %>
     <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
-    <%= f.select :customer_id, presenter.customers, { label: "Select a customer", selected: 0 } %>
-    <%= f.fields_for :plate_job do |p| %>
-      <%= p.select :plate_dimension_id, presenter.plate_dimensions, { label: "Select a plate", selected: 0 } %>
+    <%= f.select :customer_id, presenter.customers, { label: "Select a customer", selected: @print_job.customer.id } %>
+    <%= f.fields_for presenter.plate do |p| %>
+      <%= p.select :plate_dimension_id, presenter.plate_dimensions, { label: "Select a plate", selected: presenter.plate.plate_dimension_id } %>
     <% end %>
     <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Update" %>
   <% end %>
 </div>

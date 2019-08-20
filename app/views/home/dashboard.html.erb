@@ -1,5 +1,79 @@
+<% presenter = ::Home::DashboardPresenter.new(self) %>
 <div class="mt-10">
-  <h1>
-    Dashboard
-  </h1>
+  <div class="d-flex justify-content-between ">
+    <h1 class="">
+      Dashboard
+    </h1>
+    <div class="d-flex">
+      <div class="mr-2">
+        <%= button_to "All Jobs", print_jobs_path, method: :get, class: "btn btn-primary text-white" %>
+      </div>
+      <div>
+        <%= button_to "Create a New Job", new_print_job_path, method: :get, class: "btn btn-primary text-white" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Total Jobs</h4>
+          <p class="card-text">Jobs in the last 30 days</p>
+          <h1><%= PrintJob.count %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Plates used</h4>
+          <p class="card-text">Plates used in the last 30 days</p>
+          <h1><%= PlateJob.count %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Plates wasted</h4>
+          <p class="card-text">Plates waster in the last 30 days</p>
+          <h1><%= PlateJob.where(is_wasted: true).count %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 ">
+    <table class="table table-striped border">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Reference Number</th>
+        <th scope="col">Name</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Plate</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% presenter.jobs.map do |print_job| %>
+        <tr>
+          <td><%= print_job.ref_no %></td>
+          <td><%= print_job.name %></td>
+          <td> <%= print_job.customer.name %></td>
+          <td> <%= print_job.plate_dimensions.first.dimension %></td>
+          <td> <%= print_job.state %></td>
+          <td>
+          <span>
+          <%= link_to "Show", print_job_path(print_job) %>
+          </span>
+            <span class="pl-2">
+          <%= link_to "Edit", edit_print_job_path(print_job) %>
+          </span>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

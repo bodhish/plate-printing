@@ -1,5 +1,44 @@
 <div>
-  <h1>
-    show
-  </h1>
+  <div class="d-flex justify-content-between ">
+    <h1 class="">
+      Job <%= @print_job.ref_no %>
+    </h1>
+    <div>
+      <%= button_to "Edit Job", edit_print_job_path, method: :get, class: "btn btn-primary text-white" %>
+    </div>
+  </div>
+
+  <table class="table table-striped border">
+    <tbody>
+    <tr>
+      <th scope="row">Reference Number</th>
+      <td><%= @print_job.ref_no %></td>
+    </tr>
+    <tr>
+      <th scope="row">Name</th>
+      <td><%= @print_job.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Customer Name</th>
+      <td> <%= @print_job.customer.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Plate</th>
+      <td> <%= @print_job.plate_dimension.dimension %></td>
+    </tr>
+    <tr>
+      <th scope="row">Wasted Plates count</th>
+      <td> <%= @print_job.wasted_plates.count %></td>
+    </tr>
+    <tr>
+      <th scope="row">Status</th>
+      <td> <%= @print_job.state %></td>
+    </tr>
+
+    <tr>
+      <th scope="row">Comments</th>
+      <td> <%= @print_job.comments %></td>
+    </tr>
+    </tbody>
+  </table>
 </div>
