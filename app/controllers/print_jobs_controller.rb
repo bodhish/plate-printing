@@ -12,7 +12,7 @@ class PrintJobsController < HomeController
     if job.save!
       job.plate_jobs.create!(plate_job_params[:plate_job])
       flash[:success] = 'Job created successfully'
-      redirect_to print_jobs_path
+      redirect_to root_path
     else
       flash[:success] = 'Error'
       render new

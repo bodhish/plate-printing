@@ -6,52 +6,65 @@
     </div>
     <div class="d-flex">
       <div class="mr-2">
-        <%= button_to "All Jobs", print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white" %>
+        <%= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+          <div class="flex items-center">
+            <i class="material-icons">list</i>
+            <span>All Jobs</span>
+          </div>
+        <% end %>
       </div>
       <div>
-        <%= button_to "Create a New Job", new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white" %>
+        <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+          <div class="flex items-center">
+            <i class="material-icons">add</i>
+            <span>Add Job</span>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="flex-col flex md:flex-row md:justify-between mx-auto">
     <div class="md:w-1/4 mt-2">
-      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-purple-200">
+      <div class="shadow-md rounded-t-md rounded-b-md bg-pink-500">
         <div class="flex justify-between items-center px-4 py-2">
+          <i class="material-icons text-5xl text-white">list_alt</i>
           <div>
-            <div class="text-xl font-semibold text-purple-600">Total Jobs</div>
-            <p class="text-xs text-gray-600">Jobs in the last 30 days</p>
+            <div class="text-xl font-semibold text-white">Total Jobs</div>
+            <p class="text-xs text-gray-300">Jobs in the last 30 days</p>
           </div>
-          <div class="text-5xl font-bold text-purple-600"><%= PrintJob.count %></div>
+          <div class="text-5xl font-bold text-white"><%= PrintJob.count %></div>
         </div>
       </div>
     </div>
     <div class="md:w-1/4 mt-2">
-      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-teal-200">
+      <div class="shadow-md rounded-t-md rounded-b-md bg-pink-500">
         <div class="flex justify-between items-center px-4 py-2">
+          <i class="material-icons text-5xl text-white">playlist_add_check</i>
           <div>
-            <div class="text-xl font-semibold text-teal-600">Plates used</div>
-            <p class="text-xs text-gray-600">Plates used in the last 30 days</p>
+            <div class="text-xl font-semibold text-white">Plates used</div>
+            <p class="text-xs text-gray-300">Plates used in the last 30 days</p>
           </div>
-          <div class="text-5xl font-bold text-teal-600"><%= PlateJob.count %></div>
+          <div class="text-5xl font-bold text-white"><%= PlateJob.count %></div>
         </div>
       </div>
     </div>
     <div class="md:w-1/4 mt-2">
-      <div class="shadow-sm rounded-t-sm rounded-b-sm border-2 border-red-200">
-        <div class="flex justify-between items-center px-4 py-2">
+      <div class="shadow-md rounded-t-md rounded-b-md bg-gray-500">
+        <div class="flex justify-between items-center pl-2 pr-4 py-2">
+          <i class="material-icons text-5xl text-white">delete_forever</i>
           <div>
-            <div class="text-xl font-semibold text-red-600">Plates wasted</div>
-            <p class="text-xs text-gray-600">Plates wasted in the last 30 days</p>
+            <div class="text-xl font-semibold text-white">Plates wasted</div>
+            <p class="text-xs text-white">Plates wasted in the last 30 days</p>
           </div>
-          <div class="text-5xl font-bold text-red-600"><%= PlateJob.where(is_wasted: true).count %></div>
+          <div class="text-5xl font-bold text-white"><%= PlateJob.where(is_wasted: true).count %></div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="mt-4 overflow-x-scroll">
-    <table class="table shadow-sm border-2 table-borderless border-indigo-700">
-      <thead class="bg-indigo-700 text-white md:text-sm text-xs">
+    <table class="table shadow-sm border-2 table-borderless border-blue-500">
+      <thead class="bg-blue-500 text-white md:text-sm text-xs">
       <tr>
         <th scope="col">Job ID</th>
         <th scope="col">Name</th>
