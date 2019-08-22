@@ -7,9 +7,14 @@
     <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255 %>
     <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
     <%= f.select :customer_id, presenter.customers, { label: "Select a customer", selected: 0 } %>
-    <%= f.fields_for :plate_job do |p| %>
-      <%= p.select :plate_dimension_id, presenter.plate_dimensions, { label: "Select a plate", selected: 0 } %>
-    <% end %>
+    <div id="plate_jobs">
+      <%= f.fields_for :plate_jobs do |plate| %>
+        <%= render 'plate_job_fields', f: plate %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Add Plate', f, :plate_jobs, class: 'bg-blue-500 p-1 rounded' %>
+      </div>
+    </div>
     <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
     <%= f.submit "Submit", class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white' %>
   <% end %>

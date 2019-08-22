@@ -3,7 +3,7 @@ class PrintJob < ApplicationRecord
   has_many :plate_jobs
   has_many :plate_dimensions, through: :plate_jobs
 
-  accepts_nested_attributes_for :plate_jobs
+  accepts_nested_attributes_for :plate_jobs, reject_if: :all_blank, allow_destroy: true
 
   def plate_job
     plate_jobs.where(is_wasted: false).last

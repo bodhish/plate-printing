@@ -10,7 +10,7 @@ class PrintJobsController < HomeController
   def create
     job = PrintJob.new(create_params)
     if job.save!
-      job.plate_jobs.create!(plate_job_params[:plate_job])
+      # job.plate_jobs.create!(plate_job_params[:plate_job])
       flash[:success] = 'Job created successfully'
       redirect_to root_path
     else
@@ -43,7 +43,7 @@ class PrintJobsController < HomeController
   private
 
   def create_params
-    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments)
+    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, plate_jobs_attributes: [:id, :plate_dimension_id, :count, :_destroy])
   end
 
   def update_params
