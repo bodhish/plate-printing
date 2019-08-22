@@ -1,9 +1,6 @@
 <% presenter = ::Home::DashboardPresenter.new(self) %>
 <div class="">
   <div class="flex flex-col md:flex-row justify-content-between ">
-    <div class="font-bold text-4xl text-gray-600">
-      Welcome
-    </div>
     <div class="d-flex">
       <div class="mr-2">
         <%= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>

@@ -3,7 +3,12 @@
     All Jobs
   </h1>
   <div>
-    <%= button_to "Create a New Job", new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" %>
+    <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+      <div class="flex items-center">
+        <i class="material-icons pr-1">add</i>
+        <span>Add Job</span>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="mt-4 ">
