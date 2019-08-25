@@ -1,6 +1,6 @@
 class PrintJob < ApplicationRecord
   belongs_to :customer
-  has_many :plate_jobs
+  has_many :plate_jobs, inverse_of: :print_job
   has_many :plate_dimensions, through: :plate_jobs
 
   accepts_nested_attributes_for :plate_jobs, reject_if: :all_blank, allow_destroy: true

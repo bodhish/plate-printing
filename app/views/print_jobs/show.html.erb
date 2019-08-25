@@ -23,8 +23,8 @@
       <td> <%= @print_job.customer.name %></td>
     </tr>
     <tr>
-      <th scope="row">Plate</th>
-      <td> <%= @print_job.plate_dimension.dimension %></td>
+      <th scope="row">Plates</th>
+      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(#{pj.count})" }.join(', ') %></td>
     </tr>
     <tr>
       <th scope="row">Wasted Plates count</th>

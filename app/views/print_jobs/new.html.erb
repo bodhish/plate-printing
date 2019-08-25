@@ -1,4 +1,4 @@
-<% presenter = ::PrintJobs::NewPresenter.new(self) %>
+<% @presenter = ::PrintJobs::NewPresenter.new(self) %>
 <div class="font-weight-bold h1">
   New Job
 </div>
@@ -6,13 +6,13 @@
   <%= bootstrap_form_for(@print_job, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
     <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255 %>
     <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
-    <%= f.select :customer_id, presenter.customers, { label: "Select a customer", selected: 0 } %>
-    <div id="plate_jobs">
+    <%= f.select :customer_id, @presenter.customers, { label: "Select a customer", selected: 0 } %>
+    <div id="plate_jobs" class="offset-md-3 p-2 bg-gray-100 rounded-lg mb-2">
       <%= f.fields_for :plate_jobs do |plate| %>
         <%= render 'plate_job_fields', f: plate %>
       <% end %>
       <div class="links">
-        <%= link_to_add_association 'Add Plate', f, :plate_jobs, class: 'bg-blue-500 p-1 rounded' %>
+        <%= link_to_add_association '+ Add Plate', f, :plate_jobs, class: 'bg-green-400 p-1 rounded text-xs text-white' %>
       </div>
     </div>
     <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>

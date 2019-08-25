@@ -29,7 +29,7 @@
         <td>#<%= print_job.ref_no %></td>
         <td><%= print_job.name %></td>
         <td> <%= print_job.customer.name %></td>
-        <td> <%= print_job.plate_dimensions.first.dimension %></td>
+        <td> <%= print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(#{pj.count})" }.join(', ') %></td>
         <td> <%= print_job.state %></td>
         <td>
           <span>

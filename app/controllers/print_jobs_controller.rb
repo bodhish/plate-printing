@@ -4,7 +4,7 @@ class PrintJobsController < HomeController
   end
 
   def index
-    @print_jobs = PrintJob.all
+    @print_jobs = PrintJob.all.reverse
   end
 
   def create
@@ -33,7 +33,7 @@ class PrintJobsController < HomeController
 
     if print_job.update!(update_params)
       flash[:success] = 'Job updated successfully'
-      redirect_to print_job_path (print_job)
+      redirect_to print_job_path(print_job)
     else
       flash[:success] = 'Error'
       render edit
