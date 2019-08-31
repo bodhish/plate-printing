@@ -5,6 +5,8 @@ class PrintJob < ApplicationRecord
 
   accepts_nested_attributes_for :plate_jobs, reject_if: :all_blank, allow_destroy: true
 
+  enum state: [ 'In Progress', 'Ready for Delivery', 'Delivered' ]
+
   def plate_job
     plate_jobs.where(is_wasted: false).last
   end
