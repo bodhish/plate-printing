@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_094326) do
+ActiveRecord::Schema.define(version: 2019_08_31_130217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2019_08_31_094326) do
     t.integer "set"
     t.integer "color"
     t.integer "wastage", default: 0
-    t.index ["plate_dimension_id", "print_job_id"], name: "index_plate_jobs_on_plate_dimension_id_and_print_job_id", unique: true
     t.index ["print_job_id"], name: "index_plate_jobs_on_print_job_id"
   end
 
@@ -86,6 +85,6 @@ ActiveRecord::Schema.define(version: 2019_08_31_094326) do
   end
 
   add_foreign_key "plate_jobs", "plate_dimensions"
-  add_foreign_key "plate_jobs", "print_jobs"
+  add_foreign_key "plate_jobs", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
 end
