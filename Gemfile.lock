@@ -86,6 +86,8 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    bootstrap-datepicker-rails (1.8.0.1)
+      railties (>= 3.0)
     bootstrap_form (4.2.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -321,6 +323,7 @@ DEPENDENCIES
   activeadmin
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.3.1)
+  bootstrap-datepicker-rails
   bootstrap_form (>= 4.2.0)
   byebug
   capybara (>= 2.15)

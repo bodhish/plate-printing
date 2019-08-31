@@ -69,3 +69,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Dynamic nested forms using jQuery made easy
 gem "cocoon"
+
+# Bootstrap powered datepicker
+gem 'bootstrap-datepicker-rails'

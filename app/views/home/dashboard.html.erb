@@ -45,22 +45,33 @@
     </div>
   </div>
 
-  <div class="flex flex-row-reverse mb-2">
-    <div class="ml-2">
-      <%= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
-        <div class="flex items-center">
-          <i class="material-icons pr-1">list</i>
-          <span>All Jobs</span>
-        </div>
+  <div class="flex flex-row mb-2 justify-between">
+    <div>
+      <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
+        <%= f.form_group do %>
+          <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true , 'date-orientation': 'bottom left' } %>
+          <%= f.text_field :for_date, hide_label: true, data: date_picker_data, class: 'mr-2', value: presenter.date.strftime('%d-%m-%y'), autocomplete: "off"%>
+        <%end %>
+        <%= f.submit 'Go', class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white'%>
       <% end %>
     </div>
-    <div>
-      <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
-        <div class="flex items-center">
-          <i class="material-icons pr-1">add</i>
-          <span>Add Job</span>
-        </div>
-      <% end %>
+    <div class="flex">
+      <div class="mr-2">
+        <%= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+          <div class="flex items-center">
+            <i class="material-icons pr-1">list</i>
+            <span>All Jobs</span>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+          <div class="flex items-center">
+            <i class="material-icons pr-1">add</i>
+            <span>Add Job</span>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 

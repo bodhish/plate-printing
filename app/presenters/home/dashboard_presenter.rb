@@ -13,7 +13,7 @@ module Home
     end
 
     def date
-      params[:for_date] ? Time.zone.parse(params[:for_date]) : Time.zone.now
+      params[:date_filter] ? Time.zone.strptime(params[:date_filter][:for_date], '%d-%m-%y'): Time.zone.now
     end
 
     private
