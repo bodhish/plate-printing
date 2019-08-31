@@ -15,5 +15,9 @@ module PrintJobs
 
       [["Select a customer", 0]] + options
     end
+
+    def next_ref_no
+      PrintJob.maximum(:ref_no) + 1
+    end
   end
 end
