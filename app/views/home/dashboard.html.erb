@@ -65,7 +65,7 @@
   </div>
 
   <div class="overflow-x-scroll">
-    <table class="table shadow-sm border-2 table-borderless border-blue-500">
+    <table class="table border-2 table-borderless border-blue-500 shadow-md md:shadow-lg rounded-t-lg rounded-b-lg">
       <thead class="bg-blue-500 text-white md:text-sm text-xs">
       <tr>
         <th scope="col">Job ID</th>
@@ -79,18 +79,15 @@
       <tbody class="text-gray-700 md:text-sm text-xs">
       <% presenter.jobs.map do |print_job| %>
         <tr>
-          <td>#<%= print_job.ref_no %></td>
-          <td><%= print_job.name %></td>
+          <td><%= link_to "##{print_job.ref_no}", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
+          <td><%= link_to print_job.name, print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
           <td> <%= print_job.customer.name %></td>
           <td> <%= print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(#{pj.count})" }.join(', ') %></td>
           <td> <%= print_job.state %></td>
-          <td>
-          <span>
-          <%= link_to "Details", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %>
-          </span>
-            <span class="pl-2">
-          <%= link_to "Edit", edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %>
-          </span>
+          <td class="text-right">
+            <%= link_to edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer'  do %>
+              <i class="material-icons">edit</i>
+            <% end %>
           </td>
         </tr>
       <% end %>
