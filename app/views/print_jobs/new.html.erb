@@ -4,7 +4,7 @@
 </div>
 <div class="mt-4 border rounded shadow-lg p-4 bg-white">
   <%= bootstrap_form_for(@print_job, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
-    <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255 %>
+    <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255, value: @presenter.next_ref_no %>
     <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
     <%= f.select :customer_id, @presenter.customers, { label: "Select a customer", selected: 0 } %>
     <div id="plate_jobs" class="offset-md-3 p-2 bg-gray-100 rounded-lg mb-2">
