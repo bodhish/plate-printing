@@ -39,7 +39,7 @@
               <p class="text-xs text-white">Plates wasted in the last 30 days</p>
             </div>
           </div>
-          <div class="text-5xl font-bold text-white"><%= PlateJob.where(is_wasted: true).count %></div>
+          <div class="text-5xl font-bold text-white"><%= PlateJob.pluck(:wastage).sum %></div>
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@
           <td><%= link_to "##{print_job.ref_no}", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
           <td><%= link_to print_job.name, print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
           <td> <%= print_job.customer.name %></td>
-          <td> <%= print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(#{pj.count})" }.join(', ') %></td>
+          <td> <%= print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(set: #{pj.set}, color: #{pj.color})" }.join(', ') %></td>
           <td> <%= print_job.state %></td>
           <td class="text-right">
             <%= link_to edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer'  do %>

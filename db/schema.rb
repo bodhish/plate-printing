@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_182212) do
+ActiveRecord::Schema.define(version: 2019_08_31_094326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(version: 2019_08_22_182212) do
   create_table "plate_jobs", force: :cascade do |t|
     t.bigint "print_job_id"
     t.bigint "plate_dimension_id"
-    t.boolean "is_wasted", default: false
-    t.integer "count"
+    t.integer "set"
+    t.integer "color"
+    t.integer "wastage", default: 0
     t.index ["plate_dimension_id", "print_job_id"], name: "index_plate_jobs_on_plate_dimension_id_and_print_job_id", unique: true
     t.index ["print_job_id"], name: "index_plate_jobs_on_print_job_id"
   end

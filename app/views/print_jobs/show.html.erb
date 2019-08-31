@@ -24,11 +24,7 @@
     </tr>
     <tr>
       <th scope="row">Plates</th>
-      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(#{pj.count})" }.join(', ') %></td>
-    </tr>
-    <tr>
-      <th scope="row">Wasted Plates count</th>
-      <td> <%= @print_job.wasted_plates.count %></td>
+      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></td>
     </tr>
     <tr>
       <th scope="row">Status</th>
