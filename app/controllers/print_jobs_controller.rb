@@ -14,7 +14,7 @@ class PrintJobsController < HomeController
       flash[:success] = 'Job created successfully'
       redirect_to root_path
     else
-      flash[:success] = 'Error'
+      flash[:error] = 'Error'
       render new
     end
   end
@@ -35,9 +35,21 @@ class PrintJobsController < HomeController
       flash[:success] = 'Job updated successfully'
       redirect_to print_job_path(print_job)
     else
-      flash[:success] = 'Error'
+      flash[:error] = 'Error'
       render edit
     end
+  end
+
+  def mark_printed
+    print_job = PrintJob.find(params[:print_job_id])
+
+    if print_job.update!(state: 'Printed')
+      flash[:success] = 'Job marked printed!'
+    else
+      flash[:error] = 'Error'
+    end
+
+    redirect_to root_path
   end
 
   private

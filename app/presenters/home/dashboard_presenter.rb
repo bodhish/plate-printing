@@ -1,7 +1,7 @@
 module Home
   class DashboardPresenter < ::ApplicationPresenter
     def jobs_to_display
-      PrintJob.where(created_at: date_window).includes(:customer, plate_jobs: :plate_dimension).reverse
+      PrintJob.where(created_at: date_window).includes(:customer, plate_jobs: :plate_dimension).order(created_at: :desc)
     end
 
     def jobs_in_month

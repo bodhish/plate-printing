@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#dashboard'
 
-  resources :print_jobs, only: %i[new create show index edit update]
+  resources :print_jobs, only: %i[new create show index edit update] do
+    post 'mark_printed', action: 'mark_printed'
+  end
 end
