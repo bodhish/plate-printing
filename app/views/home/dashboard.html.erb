@@ -48,27 +48,29 @@
   <div class="flex flex-row mb-2 justify-between">
     <div>
       <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
-        <%= f.form_group do %>
-          <% date_picker_data = {provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left'} %>
-          <%= f.text_field :for_date, hide_label: true, data: date_picker_data, class: 'mr-2', value: presenter.date.strftime('%d-%m-%y'), autocomplete: "off" %>
+        <% date_picker_data = {provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left'} %>
+        <%= f.form_group class: 'mr-2 max-w-xs' do %>
+          <%= f.text_field :for_date, hide_label: true, data: date_picker_data, class: 'mr-2', value: presenter.date.strftime('%d-%m-%y'), autocomplete: "off" , wrapper: false%>
         <% end %>
-        <%= f.submit 'Go', class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white' %>
+        <%= f.form_group do %>
+          <%= f.submit 'Go', class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white', wrapper: false%>
+        <% end %>
       <% end %>
     </div>
     <div class="flex">
-      <div class="mr-2">
-        <%= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
-          <div class="flex items-center">
-            <i class="material-icons pr-1">list</i>
-            <span>All Jobs</span>
-          </div>
-        <% end %>
-      </div>
+      <!--      <div class="mr-2">-->
+      <%#= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+      <!--          <div class="flex items-center">-->
+      <!--            <i class="material-icons pr-1">list</i>-->
+      <!--            <span>All Jobs</span>-->
+      <!--          </div>-->
+      <%# end %>
+      <!--      </div>-->
       <div>
         <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
           <div class="flex items-center">
-            <i class="material-icons pr-1">add</i>
-            <span>Add Job</span>
+            <i class="material-icons md:pr-1">add</i>
+            <span class="hidden md:block">Add Job</span>
           </div>
         <% end %>
       </div>
@@ -95,7 +97,7 @@
           <td><%= link_to print_job.name, print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
           <td> <%= print_job.customer.name %></td>
           <td>
-            <%print_job.plate_jobs.map do |pj| %>
+            <% print_job.plate_jobs.map do |pj| %>
               <div>
                 <%= pj.plate_dimension.dimension %>
                 <span class="text-xs text-gray-600">(set: <%= pj.set %>, color: <%= pj.color %>)</span>
@@ -103,9 +105,9 @@
             <% end %>
           </td>
           <td>
-            <div class="flex justify-center print-job-state-<%= PrintJob.states[print_job.state] %> py-1 rounded-lg text-sm font-semibold"><%= print_job.state %></div>
+            <div class="flex print-job-state-<%= PrintJob.states[print_job.state] %> py-1 rounded-lg text-sm font-semibold"><%= print_job.state %></div>
           </td>
-          <td class="text-xs items-center bg-transparent text-center">
+          <td class="text-xs bg-transparent">
             <% if print_job.state == 'Pending' %>
               <%= button_to 'Mark Printed', print_job_mark_printed_path(print_job), class: 'md:w-2/3 py-1 px-2 bg-orange-400 rounded text-white' %>
             <% elsif print_job.state == 'Printed' %>
