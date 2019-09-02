@@ -8,7 +8,7 @@ class PrintJobsController < HomeController
   end
 
   def create
-    job = PrintJob.new(create_params)
+    job = PrintJob.new(create_params.merge!(assignee: current_user))
     if job.save!
       # job.plate_jobs.create!(plate_job_params[:plate_job])
       flash[:success] = 'Job created successfully'

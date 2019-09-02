@@ -24,16 +24,23 @@
     </tr>
     <tr>
       <th scope="row">Plates</th>
-      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension}(set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></td>
+      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension} (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></td>
     </tr>
     <tr>
       <th scope="row">Status</th>
       <td> <%= @print_job.state %></td>
     </tr>
-
+    <tr>
+      <th scope="row">Assignee</th>
+      <td> <%= @print_job.assignee&.name&.titleize %></td>
+    </tr>
     <tr>
       <th scope="row">Comments</th>
       <td> <%= @print_job.comments %></td>
+    </tr>
+    <tr>
+      <th scope="row">Created on</th>
+      <td> <%= @print_job.created_at.strftime('%b %e, %l:%M %p') %></td>
     </tr>
     </tbody>
   </table>
