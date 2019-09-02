@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_02_091805) do
+ActiveRecord::Schema.define(version: 2019_09_02_102742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,8 +71,13 @@ ActiveRecord::Schema.define(version: 2019_09_02_091805) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "assignee_id"
+    t.integer "delivery_note_no"
+    t.datetime "delivered_at"
+    t.datetime "printed_at"
+    t.bigint "delivered_by_id"
     t.index ["assignee_id"], name: "index_print_jobs_on_assignee_id"
     t.index ["customer_id"], name: "index_print_jobs_on_customer_id"
+    t.index ["delivered_by_id"], name: "index_print_jobs_on_delivered_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,4 +95,5 @@ ActiveRecord::Schema.define(version: 2019_09_02_091805) do
   add_foreign_key "plate_jobs", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
   add_foreign_key "print_jobs", "users", column: "assignee_id"
+  add_foreign_key "print_jobs", "users", column: "delivered_by_id"
 end

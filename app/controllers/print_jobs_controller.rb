@@ -52,6 +52,22 @@ class PrintJobsController < HomeController
     redirect_to root_path
   end
 
+  def delivery_note_form
+    @print_job = PrintJob.find(params[:print_job_id])
+  end
+
+  def mark_delivered
+    print_job = PrintJob.find(params[:print_job_id])
+
+    if print_job.update!(mark_delivered_params.merge!(state: 'Delivered', delivered_by: current_user, delivered_at: Time.zone.now))
+      flash[:success] = 'Job marked delivered!'
+    else
+      flash[:error] = 'Error. Try again!'
+    end
+
+    redirect_to root_path
+  end
+
   private
 
   def create_params
@@ -66,4 +82,7 @@ class PrintJobsController < HomeController
     params.require(:print_job).permit(plate_job: [:plate_dimension_id])
   end
 
+  def mark_delivered_params
+    params.require(:print_job).permit(:delivery_note_no, :comments)
+  end
 end

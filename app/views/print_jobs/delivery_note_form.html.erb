@@ -1,0 +1,10 @@
+<div class="font-weight-bold h4">
+  Delivery Note for Job #<%= @print_job.ref_no %> (<%= @print_job.name %>)
+</div>
+<div class="mt-4 border rounded shadow-lg p-4 bg-white">
+  <%= bootstrap_form_for(@print_job, url: print_job_mark_delivered_path(@print_job), layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
+    <%= f.number_field :delivery_note_no, label: 'Delivery Note #', label_class: 'col-form-label', required: true, maxlength: 255 %>
+    <%= f.text_area :comments, label_class: 'col-form-label', placeholder: "Leave a comment...", required: false %>
+    <%= f.submit "Mark Delivered", class: 'text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white' %>
+  <% end %>
+</div>

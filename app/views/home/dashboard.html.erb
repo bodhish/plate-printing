@@ -115,7 +115,7 @@
             <% if print_job.state == 'Pending' %>
               <%= button_to 'Mark Printed', print_job_mark_printed_path(print_job), class: 'md:w-2/3 py-1 px-2 bg-orange-400 rounded text-white' %>
             <% elsif print_job.state == 'Printed' %>
-              <%= link_to 'Mark Delivered', '#', class: 'md:w-2/3 py-1 px-2 bg-green-400 rounded text-white' %>
+              <%= link_to 'Mark Delivered', print_job_delivery_note_form_path(print_job), class: 'md:w-2/3 py-1 px-2 bg-green-400 rounded text-white' %>
             <% end %>
           </td>
           <td>

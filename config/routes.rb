@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   resources :print_jobs, only: %i[new create show index edit update] do
     post 'mark_printed', action: 'mark_printed'
+    get 'delivery_note_form', action: 'delivery_note_form'
+    patch 'mark_delivered', action: 'mark_delivered'
   end
 end

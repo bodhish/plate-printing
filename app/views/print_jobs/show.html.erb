@@ -39,9 +39,25 @@
       <td> <%= @print_job.comments %></td>
     </tr>
     <tr>
-      <th scope="row">Created on</th>
+      <th scope="row">Created at</th>
       <td> <%= @print_job.created_at.strftime('%b %e, %l:%M %p') %></td>
     </tr>
+    <% if @print_job.state != 'Pending' %>
+      <tr>
+        <th scope="row">Printed at</th>
+        <td> <%= @print_job.printed_at&.strftime('%b %e, %l:%M %p') %></td>
+      </tr>
+      <% if @print_job.state == 'Delivered' %>
+        <tr>
+          <th scope="row">Delivered by</th>
+          <td> <%= @print_job.delivered_by&.name&.titleize %></td>
+        </tr>
+        <tr>
+          <th scope="row">Delivered at</th>
+          <td> <%= @print_job.delivered_at&.strftime('%b %e, %l:%M %p') %></td>
+        </tr>
+      <% end %>
+     <% end %>
     </tbody>
   </table>
 </div>
