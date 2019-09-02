@@ -12,6 +12,10 @@ module Home
       PlateJob.where(print_job: jobs_in_month).map { |pj| pj.set * pj.color }.sum
     end
 
+    def plates_wasted
+      PlateJob.where(print_job: jobs_in_month).sum(:wastage)
+    end
+
     def date
       params[:date_filter] ? Time.zone.strptime(params[:date_filter][:for_date], '%d-%m-%y'): Time.zone.now
     end

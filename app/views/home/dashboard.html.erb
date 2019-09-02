@@ -39,7 +39,7 @@
               <p class="text-xs text-white"><%= "in #{presenter.date.strftime('%B')}" %></p>
             </div>
           </div>
-          <div class="text-5xl font-bold text-white"><%= PlateJob.sum(:wastage) %></div>
+          <div class="text-5xl font-bold text-white"><%= presenter.plates_wasted %></div>
         </div>
       </div>
     </div>
@@ -100,7 +100,11 @@
             <% print_job.plate_jobs.map do |pj| %>
               <div>
                 <%= pj.plate_dimension.dimension %>
-                <span class="text-xs text-gray-600">(set: <%= pj.set %>, color: <%= pj.color %>)</span>
+                <span class="text-xs text-gray-600">( set:<%= pj.set %> color:<%= pj.color %>
+                  <% if pj.wastage > 0 %>
+                    <span class="text-red-600"> waste:<%= pj.wastage %></span>
+                  <% end %>)
+                </span>
               </div>
             <% end %>
           </td>
