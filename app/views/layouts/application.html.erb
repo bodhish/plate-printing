@@ -26,9 +26,9 @@
 
 <body class="bg-gray-100">
 <% unless @hide_navbar %>
-  <section id="header mb-2 shadow-md" class="header">
+  <section id="header" class="header shadow-md bg-white">
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light navbar-container d-flex justify-content-between">
+      <nav class="navbar navbar-expand-lg navbar-light navbar-container d-flex justify-content-between max-w-5xl mx-auto">
         <a class="navbar-brand -ml-6" href="<%= root_path %>">
           <%= image_tag("logo.png", :alt => "VERTECHS IMAGING", class: "w-30 h-20") %>
         </a>
@@ -54,7 +54,7 @@
 <% end %>
 
 
-<div class="container mx-auto max-w-7xl">
+<div class="container mx-auto max-w-5xl">
   <%= yield %>
 </div>
 
