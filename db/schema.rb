@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_02_102742) do
+ActiveRecord::Schema.define(version: 2019_09_03_170835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2019_09_02_102742) do
     t.string "encrypted_password", default: "", null: false
     t.string "name"
     t.string "avatar"
+    t.boolean "is_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
