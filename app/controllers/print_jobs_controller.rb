@@ -33,7 +33,7 @@ class PrintJobsController < HomeController
 
     if print_job.update!(update_params)
       flash[:success] = 'Job updated successfully'
-      redirect_to print_job_path(print_job)
+      redirect_to root_path
     else
       flash[:error] = 'Error'
       render edit

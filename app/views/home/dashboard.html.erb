@@ -143,16 +143,19 @@
               <% print_job.plate_jobs.map do |pj| %>
                 <div>
                   <%= pj.plate_dimension.dimension %>
-                  <span class="text-xs text-gray-600">( set:<%= pj.set %> color:<%= pj.color %>
+                  <span class="text-xs text-gray-600">( <%= pj.color %> colors X <%= pj.set %>
+                    sets = <%= pj.set * pj.color %> plates
                     <% if pj.wastage > 0 %>
-                    <span class="text-red-600"> waste:<%= pj.wastage %></span>
-                  <% end %>)
+                    , <span class="text-red-600"> waste:<%= pj.wastage %></span>
+                  <% end %>
+                    )
                 </span>
                 </div>
               <% end %>
             </div>
             <div class="text-xs text-gray-500 mt-2">
-              Created by <span class="text-gray-600"> <%= print_job.assignee.name.titleize %> </span> at <span class="text-gray-600"> <%= print_job.created_at.strftime('%l:%M %p') %> </span>
+              Created by <span class="text-gray-600"> <%= print_job.assignee.name.titleize %> </span> at
+              <span class="text-gray-600"> <%= print_job.created_at.strftime('%l:%M %p') %> </span>
             </div>
           </div>
           <div class="w-full md:w-1/3 text-left md:text-right border-t-2 md:border-t-0 border-l-0 md:border-l-2 pt-2 md:pt-0 pl-2 mt-2 md:mt-0 flex flex-col items-center justify-center ">
