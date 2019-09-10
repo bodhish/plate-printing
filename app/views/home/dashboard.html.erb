@@ -1,45 +1,48 @@
 <% presenter = ::Home::DashboardPresenter.new(self, params) %>
 <div class="">
   <div class="flex-col flex md:flex-row md:justify-between mx-auto my-4 max-w-5xl px-2 py-6 bg-gray-600 shadow rounded">
-    <div class="md:w-1/4 mb-4 mb-md-0">
-      <div>
-        <div class="flex justify-between items-center px-2 py-1">
-          <div class="flex">
-            <i class="material-icons text-5xl text-white -ml-1 mr-1">list_alt</i>
-            <div>
-              <div class="text-xl font-semibold text-white">Total Jobs</div>
-              <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
-            </div>
+    <div class="mb-4 mb-md-0 flex-grow border-r">
+      <div class="flex justify-center items-center px-2 py-1">
+        <div class="flex mr-2">
+          <i class="material-icons text-5xl text-white -ml-1 mr-1">list_alt</i>
+          <div>
+            <div class="text-xl font-semibold text-white">Total Jobs</div>
+            <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
           </div>
-          <div class="text-5xl font-bold text-white"><%= presenter.jobs_in_month.count %></div>
+        </div>
+        <div class="flex flex-col text-white items-center">
+          <div class="text-4xl font-bold"><%= presenter.monthly_stats[:jobs] %></div>
+          <div class="text-xs"><%= presenter.daily_stats[:jobs] %> Today</div>
         </div>
       </div>
     </div>
-    <div class="md:w-1/4 mb-4 mb-md-0">
-      <div>
-        <div class="flex justify-between items-center px-2 py-1">
-          <div class="flex">
-            <i class="material-icons text-5xl text-white">playlist_add_check</i>
-            <div>
-              <div class="text-xl font-semibold text-white">Plates used</div>
-              <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
-            </div>
+    <div class="mb-4 mb-md-0 flex-grow border-r">
+      <div class="flex justify-center items-center px-2 py-1">
+        <div class="flex mr-2">
+          <i class="material-icons text-5xl text-white">playlist_add_check</i>
+          <div>
+            <div class="text-xl font-semibold text-white">Plates used</div>
+            <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
           </div>
-          <div class="text-5xl font-bold text-white"><%= presenter.plates_used %></div>
+        </div>
+        <div class="flex flex-col text-white items-center">
+          <div class="text-4xl font-bold"><%= presenter.monthly_stats[:plates] %></div>
+          <div class="text-xs"><%= presenter.daily_stats[:plates] %> Today</div>
         </div>
       </div>
     </div>
-    <div class="md:w-1/4 mb-4 mb-md-0">
-      <div>
-        <div class="flex justify-between items-center px-2 py-1">
-          <div class="flex">
-            <i class="material-icons text-5xl text-white -ml-1 mr-1">delete_forever</i>
-            <div>
-              <div class="text-xl font-semibold text-white">Plates wasted</div>
-              <p class="text-xs text-white"><%= "in #{presenter.date.strftime('%B')}" %></p>
-            </div>
+    <div class="mb-4 mb-md-0 flex-grow">
+      <div class="flex justify-center items-center px-2 py-1">
+        <div class="flex mr-2">
+          <i class="material-icons text-5xl text-white -ml-1 mr-1">delete_forever</i>
+          <div>
+            <div class="text-xl font-semibold text-white">Plates wasted</div>
+            <p class="text-xs text-white"><%= "in #{presenter.date.strftime('%B')}" %></p>
           </div>
-          <div class="text-5xl font-bold text-white"><%= presenter.plates_wasted %></div>
+        </div>
+        <div class="flex flex-col text-white items-center">
+          <div class="text-4xl font-bold"><%= presenter.monthly_stats[:wastage] %></div>
+          <div class="text-xs"><%= presenter.daily_stats[:wastage] %> Today</div>
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@
       </tr>
       </thead>
       <tbody class="text-gray-700 md:text-sm text-xs">
-      <% presenter.jobs_to_display.map do |print_job| %>
+      <% presenter.jobs_on_day.map do |print_job| %>
         <tr>
           <td><%= link_to "##{print_job.ref_no}", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
           <td><%= link_to print_job.name, print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
@@ -129,7 +132,7 @@
     </table>
 
     <div class="flex flex-col w-full justify-center items-center pt-2 pb-4">
-      <% presenter.jobs_to_display.map do |print_job| %>
+      <% presenter.jobs_on_day.map do |print_job| %>
         <div class="shadow bg-white rounded-lg flex flex-col md:flex-row w-full border-transparent overflow-hidden hover:border-primary-400 hover:bg-gray-100 px-6 py-4 max-w-3xl my-2">
           <div class="w-2/3">
             <div class="flex">
@@ -143,12 +146,11 @@
               <% print_job.plate_jobs.map do |pj| %>
                 <div>
                   <%= pj.plate_dimension.dimension %>
-                  <span class="text-xs text-gray-600">( <%= pj.color %> colors X <%= pj.set %>
+                  <span class="text-xs text-gray-600"> <%= pj.color %> colors X <%= pj.set %>
                     sets = <%= pj.set * pj.color %> plates
                     <% if pj.wastage > 0 %>
                     , <span class="text-red-600"> waste:<%= pj.wastage %></span>
                   <% end %>
-                    )
                 </span>
                 </div>
               <% end %>
