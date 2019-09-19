@@ -43,7 +43,7 @@ class PrintJobsController < HomeController
   def mark_printed
     print_job = PrintJob.find(params[:print_job_id])
 
-    if print_job.update!(state: 'Printed')
+    if print_job.update!(state: 'Printed', printed_at: Time.zone.now)
       flash[:success] = 'Job marked printed!'
     else
       flash[:error] = 'Error'
