@@ -1,4 +1,4 @@
-<div class="nested-fields">
+<div class="nested-fields mt-4">
   <%= f.select :plate_dimension_id, @presenter.plate_dimensions, { selected: f&.object&.plate_dimension&.id, label: "Plate Dimension" } %>
   <%= f.number_field :set, required: true %>
   <%= f.number_field :color, required: true %>
