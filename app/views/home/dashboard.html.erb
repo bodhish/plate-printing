@@ -48,7 +48,7 @@
     </div>
   </div>
 
-  <div class="flex flex-row justify-between max-w-5xl mx-auto px-1">
+  <div class="flex flex-row justify-between max-w-5xl mx-auto px-1 px-4">
     <div>
       <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
         <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left' } %>
@@ -61,14 +61,6 @@
       <% end %>
     </div>
     <div class="flex">
-      <!--      <div class="mr-2">-->
-      <%#= button_to print_jobs_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-700  text-white" do %>
-      <!--          <div class="flex items-center">-->
-      <!--            <i class="material-icons pr-1">list</i>-->
-      <!--            <span>All Jobs</span>-->
-      <!--          </div>-->
-      <%# end %>
-      <!--      </div>-->
       <div>
         <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-700  text-white" do %>
           <div class="flex items-center">
@@ -80,57 +72,7 @@
     </div>
   </div>
 
-  <div class="overflow-x-scroll">
-    <table class=" hidden table border-2 table-borderless border-blue-500 shadow-md md:shadow-lg rounded-t-lg rounded-b-lg">
-      <thead class="bg-blue-700  text-white md:text-sm text-xs">
-      <tr>
-        <th scope="col">Job ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Customer</th>
-        <th scope="col">Plate</th>
-        <th scope="col">Status</th>
-        <th scope="col">Actions</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody class="text-gray-700 md:text-sm text-xs">
-      <% presenter.jobs_on_day.map do |print_job| %>
-        <tr>
-          <td><%= link_to "##{print_job.ref_no}", print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
-          <td><%= link_to print_job.name, print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' %></td>
-          <td> <%= print_job.customer.name %></td>
-          <td>
-            <% print_job.plate_jobs.map do |pj| %>
-              <div>
-                <%= pj.plate_dimension.dimension %>
-                <span class="text-xs text-gray-600">( set:<%= pj.set %> color:<%= pj.color %>
-                  <% if pj.wastage > 0 %>
-                    <span class="text-red-600"> waste:<%= pj.wastage %></span>
-                  <% end %>)
-                </span>
-              </div>
-            <% end %>
-          </td>
-          <td>
-            <div class="flex print-job-state-<%= PrintJob.states[print_job.state] %> py-1 rounded-lg text-sm font-semibold"><%= print_job.state %></div>
-          </td>
-          <td class="text-xs bg-transparent">
-            <% if print_job.state == 'Pending' %>
-              <%= button_to 'Mark Printed', print_job_mark_printed_path(print_job), class: 'md:w-2/3 py-1 px-2 bg-orange-400 rounded text-white' %>
-            <% elsif print_job.state == 'Printed' %>
-              <%= link_to 'Mark Delivered', print_job_delivery_note_form_path(print_job), class: 'md:w-2/3 py-1 px-2 bg-green-400 rounded text-white' %>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' do %>
-              <i class="material-icons">edit</i>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-
+  <div>
     <div class="flex flex-col justify-center items-center pt-2 pb-4 max-w-5xl mx-4">
       <% presenter.jobs_on_day.map do |print_job| %>
         <div class="shadow bg-white rounded-lg flex flex-col md:flex-row justify-between w-full border-transparent overflow-hidden hover:border-primary-400 hover:bg-gray-100 px-6 py-4 mt-4">
@@ -146,7 +88,7 @@
                 <div>
                   <span class="text-xs">
                     Plate Dimension:
-                  <%= pj.plate_dimension.dimension %>
+                    <%= pj.plate_dimension.dimension %>
                     </span>
                   <span class="text-xs text-gray-600"> <%= pj.color %> colors X <%= pj.set %>
                     sets = <%= pj.set * pj.color %> plates
@@ -159,8 +101,8 @@
             </div>
             <div class="text-xs flex">
               <div class="text-gray-600 bg-gray-300 px-1">
-              Created by <span class="text-gray-600"> <%= print_job.assignee.name.titleize %> </span> at
-              <span class="text-gray-600"> <%= print_job.created_at.strftime('%l:%M %p') %></span>
+                Created by <span class="text-gray-600"> <%= print_job.assignee.name.titleize %> </span> at
+                <span class="text-gray-600"> <%= print_job.created_at.strftime('%l:%M %p') %></span>
               </div>
             </div>
           </div>
@@ -183,7 +125,7 @@
                 <% elsif print_job.state == 'Printed' %>
                   <%= link_to 'Mark Delivered', print_job_delivery_note_form_path(print_job), class: 'py-1 px-2 bg-green-400 rounded text-white' %>
                 <% else %>
-                <div class="text-green-500 text-lg font-semibold">Done</div>
+                  <div class="text-green-500 text-lg font-semibold">Done</div>
                 <% end %>
               </div>
             </div>
