@@ -51,9 +51,9 @@
   <div class="flex flex-row justify-between max-w-5xl mx-auto px-1 px-4">
     <div>
       <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
-        <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left' } %>
+        <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
         <%= f.form_group class: 'mr-2 max-w-xs' do %>
-          <%= f.text_field :for_date, hide_label: true, data: date_picker_data, class: 'mr-2', value: presenter.date.strftime('%d-%m-%y'), autocomplete: "off", wrapper: false %>
+          <%= f.text_field :for_date, hide_label: true, data: date_picker_data, class: 'mr-2', value: presenter.date.strftime('%d-%m-%y'), autocomplete: "off", readonly: true, wrapper: false %>
         <% end %>
         <%= f.form_group do %>
           <%= f.submit 'Go', class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-700  text-white', wrapper: false %>

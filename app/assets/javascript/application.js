@@ -2,4 +2,4 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require cocoon
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
