@@ -33,7 +33,7 @@ class PrintJobsController < HomeController
 
     if print_job.update!(update_params)
       flash[:success] = 'Job updated successfully'
-      redirect_to print_job_path(print_job)
+      redirect_to root_path
     else
       flash[:error] = 'Error'
       render edit
@@ -43,7 +43,7 @@ class PrintJobsController < HomeController
   def mark_printed
     print_job = PrintJob.find(params[:print_job_id])
 
-    if print_job.update!(state: 'Printed')
+    if print_job.update!(state: 'Printed', printed_at: Time.zone.now)
       flash[:success] = 'Job marked printed!'
     else
       flash[:error] = 'Error'

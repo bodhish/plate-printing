@@ -1,63 +1,75 @@
-<div>
-  <div class="d-flex justify-content-between ">
-    <h1 class="">
-      Job <%= @print_job.ref_no %>
-    </h1>
+<div class="my-4 py-4 border rounded shadow-lg p-4 bg-gray-200">
+  <div class="flex justify-between items-center max-w-3xl mx-auto">
+    <div class="flex items-center">
+      <div class="font-semibold text-4xl py-4 text-indigo-500">
+      Job #<%= @print_job.ref_no %>
+      </div>
+      <%= button_to "Edit", edit_print_job_path, method: :get, class: "text-xs py-1 px-2 ml-2 rounded bg-indigo-500 text-white" %>
+    </div>
     <div>
-      <%= button_to "Edit Job", edit_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white" %>
+      <div class="flex">
+        <div class="text-lg font-semibold bg-gray-100 px-4 py-2 rounded-lg border print-job-state-<%= PrintJob.states[@print_job.state] %>"><%= @print_job.state %></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="max-w-3xl mx-auto py-4">
+    <div class="flex justify-between">
+
+      <div class="flex items-center">
+        <%= image_tag(@print_job.assignee.avatar, alt: @print_job.assignee&.name, class: "rounded-full w-12 h-12 mr-2") %>
+        <div class="flex-col">
+          <div class="text-sm">Assigned to</div>
+          <div class="font-bold text-md text-gray-600 mr-1">
+            <%= @print_job.assignee&.name&.titleize %>
+          </div>
+        </div>
+      </div>
+      <% if @print_job.state == 'Delivered' %>
+        <div class="flex items-center">
+          <%= image_tag(@print_job.delivered_by.avatar, alt: @print_job.delivered_by.name, class: "rounded-full w-12 h-12 mr-2") %>
+          <div class="flex-col">
+            <div class="text-sm">Delivered by</div>
+            <div class="font-bold text-md text-gray-600 mr-1">
+              <%= @print_job.delivered_by.name.titleize %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="mt-4 flex justify-between">
+      <div>
+        <div class="mt-4 text-sm">Created at</div>
+        <div class="text-lg font-semibold"><%= @print_job.created_at.strftime('%b %e, %l:%M %p') %></div>
+      </div>
+      <% if @print_job.state != 'Pending' %>
+        <div>
+          <div class="mt-4 text-sm">Printed at</div>
+          <div class="text-lg font-semibold"> <%= @print_job.printed_at&.strftime('%b %e, %l:%M %p') %></div>
+        </div>
+      <% end %>
+      <% if @print_job.state == 'Delivered' %>
+        <div>
+          <div class="mt-4 text-sm">Delivered at</div>
+          <div class="text-lg font-semibold"><%= @print_job.delivered_at&.strftime('%b %e, %l:%M %p') %></div>
+        </div>
+      <% end %>
     </div>
   </div>
-
-  <table class="table table-striped border">
-    <tbody>
-    <tr>
-      <th scope="row">Reference Number</th>
-      <td><%= @print_job.ref_no %></td>
-    </tr>
-    <tr>
-      <th scope="row">Name</th>
-      <td><%= @print_job.name %></td>
-    </tr>
-    <tr>
-      <th scope="row">Customer Name</th>
-      <td> <%= @print_job.customer.name %></td>
-    </tr>
-    <tr>
-      <th scope="row">Plates</th>
-      <td> <%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension} (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></td>
-    </tr>
-    <tr>
-      <th scope="row">Status</th>
-      <td> <%= @print_job.state %></td>
-    </tr>
-    <tr>
-      <th scope="row">Assignee</th>
-      <td> <%= @print_job.assignee&.name&.titleize %></td>
-    </tr>
-    <tr>
-      <th scope="row">Comments</th>
-      <td> <%= @print_job.comments %></td>
-    </tr>
-    <tr>
-      <th scope="row">Created at</th>
-      <td> <%= @print_job.created_at.strftime('%b %e, %l:%M %p') %></td>
-    </tr>
-    <% if @print_job.state != 'Pending' %>
-      <tr>
-        <th scope="row">Printed at</th>
-        <td> <%= @print_job.printed_at&.strftime('%b %e, %l:%M %p') %></td>
-      </tr>
-      <% if @print_job.state == 'Delivered' %>
-        <tr>
-          <th scope="row">Delivered by</th>
-          <td> <%= @print_job.delivered_by&.name&.titleize %></td>
-        </tr>
-        <tr>
-          <th scope="row">Delivered at</th>
-          <td> <%= @print_job.delivered_at&.strftime('%b %e, %l:%M %p') %></td>
-        </tr>
+  <div class="border-t bg-white rounded-lg py-4">
+    <div class="max-w-3xl mx-auto">
+      <div class=" text-sm">Reference Number</div>
+      <div class="text-lg font-semibold"><%= @print_job.ref_no %></div>
+      <div class="mt-4 text-sm">Name</div>
+      <div class="text-lg font-semibold"><%= @print_job.name %></div>
+      <div class="mt-4 text-sm">Customer Name</div>
+      <div class="text-lg font-semibold"><%= @print_job.customer.name %></div>
+      <div class="mt-4 text-sm">Plates</div>
+      <div class="text-lg font-semibold"><%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension} (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></div>
+      <% if @print_job.comments.present? %>
+        <div class="mt-4 text-sm">Comments</div>
+        <div class="text-lg font-semibold"><%= @print_job.comments %></div>
       <% end %>
-     <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 </div>
