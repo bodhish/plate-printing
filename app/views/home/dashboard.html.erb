@@ -1,54 +1,60 @@
 <% presenter = ::Home::DashboardPresenter.new(self, params) %>
 <div class="">
-  <div class="flex-col flex md:flex-row md:justify-between mx-auto my-4 max-w-5xl px-2 py-6 bg-gray-600 shadow rounded">
-    <div class="mb-4 mb-md-0 flex-grow border-r">
-      <div class="flex justify-center items-center px-2 py-1">
-        <div class="flex mr-2">
-          <i class="material-icons text-5xl text-white -ml-1 mr-1">list_alt</i>
-          <div>
-            <div class="text-xl font-semibold text-white">Total Jobs</div>
-            <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
-          </div>
+  <div class="flex-col flex md:flex-row md:justify-between mx-auto my-4 w-full">
+    <div class="flex w-full md:w-1/3 items-center p-3 border border-success rounded-lg overflow-hidden shadow-md relative">
+      <div class="flex items-center">
+        <div class="flex justify-center flex-shrink-0 items-center w-16 h-16 rounded-full bg-green-200 text-green-600">
+          <i class="material-icons text-4xl">list_alt</i>
         </div>
-        <div class="flex flex-col text-white items-center">
+        <div class="flex items-center ml-3 text-green-600">
           <div class="text-4xl font-bold"><%= presenter.monthly_stats[:jobs] %></div>
-          <div class="text-xs"><%= presenter.daily_stats[:jobs] %> Today</div>
-        </div>
-      </div>
-    </div>
-    <div class="mb-4 mb-md-0 flex-grow border-r">
-      <div class="flex justify-center items-center px-2 py-1">
-        <div class="flex mr-2">
-          <i class="material-icons text-5xl text-white">playlist_add_check</i>
-          <div>
-            <div class="text-xl font-semibold text-white">Plates used</div>
-            <p class="text-xs text-gray-300"><%= "in #{presenter.date.strftime('%B')}" %></p>
+          <div class="ml-2">
+            <div class="text-xl font-semibold leading-tight">Total Jobs</div>
+            <p class="text-sm leading-tight"><%= "in #{presenter.date.strftime('%B')}" %></p>
           </div>
         </div>
-        <div class="flex flex-col text-white items-center">
+      </div>
+      <div class="absolute right-0 top-0 bg-green-200 px-3 py-1 mr-4 rounded-b-lg text-green-600 leading-tight">
+        <div class="text-xs font-semibold"><%= presenter.daily_stats[:jobs] %> Today</div>
+      </div>
+    </div>
+    <div class="flex w-full md:w-1/3 items-center p-3 border border-primary rounded-lg overflow-hidden shadow-md relative md:mx-4">
+      <div class="flex items-center">
+        <div class="flex justify-center flex-shrink-0 items-center w-16 h-16 rounded-full bg-blue-200 text-blue-600">
+          <i class="material-icons text-4xl">playlist_add_check</i>
+        </div>
+        <div class="flex items-center ml-3 text-blue-600">
           <div class="text-4xl font-bold"><%= presenter.monthly_stats[:plates] %></div>
-          <div class="text-xs"><%= presenter.daily_stats[:plates] %> Today</div>
-        </div>
-      </div>
-    </div>
-    <div class="mb-4 mb-md-0 flex-grow">
-      <div class="flex justify-center items-center px-2 py-1">
-        <div class="flex mr-2">
-          <i class="material-icons text-5xl text-white -ml-1 mr-1">delete_forever</i>
-          <div>
-            <div class="text-xl font-semibold text-white">Plates wasted</div>
-            <p class="text-xs text-white"><%= "in #{presenter.date.strftime('%B')}" %></p>
+          <div class="ml-2">
+            <div class="text-xl font-semibold leading-tight">Plates used</div>
+            <p class="text-sm leading-tight"><%= "in #{presenter.date.strftime('%B')}" %></p>
           </div>
         </div>
-        <div class="flex flex-col text-white items-center">
-          <div class="text-4xl font-bold"><%= presenter.monthly_stats[:wastage] %></div>
-          <div class="text-xs"><%= presenter.daily_stats[:wastage] %> Today</div>
+      </div>
+      <div class="absolute right-0 top-0 bg-blue-200 px-3 py-1 mr-4 rounded-b-lg text-blue-600 leading-tight">
+        <div class="text-xs font-semibold"><%= presenter.daily_stats[:plates] %> Today</div>
+      </div>
+    </div>
+    <div class="flex w-full md:w-1/3 items-center p-3 border border-danger rounded-lg overflow-hidden shadow-md relative">
+      <div class="flex items-center">
+        <div class="flex justify-center flex-shrink-0 items-center w-16 h-16 rounded-full bg-red-200 text-red-600">
+          <i class="material-icons text-4xl">delete_forever</i>
         </div>
+        <div class="flex items-center ml-3 text-red-600">
+          <div class="text-4xl font-bold"><%= presenter.monthly_stats[:wastage] %></div>
+          <div class="ml-2">
+            <div class="text-xl font-semibold">Plates wasted</div>
+            <p class="text-xs"><%= "in #{presenter.date.strftime('%B')}" %></p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute right-0 top-0 bg-red-200 px-3 py-1 mr-4 rounded-b-lg text-red-600 leading-tight">
+        <div class="text-xs font-semibold"><%= presenter.daily_stats[:wastage] %> Today</div>
       </div>
     </div>
   </div>
 
-  <div class="flex flex-row justify-between max-w-5xl mx-auto px-1 px-4">
+  <div class="flex flex-row justify-between max-w-5xl mx-auto px-1">
     <div>
       <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
         <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
@@ -73,13 +79,13 @@
   </div>
 
   <div>
-    <div class="flex flex-col justify-center items-center pt-2 pb-4 max-w-5xl mx-4">
+    <div class="flex flex-col justify-center items-center pt-2 pb-4 max-w-5xl">
       <% presenter.jobs_on_day.map do |print_job| %>
-        <div class="shadow bg-white rounded-lg flex flex-col md:flex-row justify-between w-full border-transparent overflow-hidden hover:border-primary-400 hover:bg-gray-100 px-6 py-4 mt-4">
+        <div class="shadow-sm bg-white rounded-lg flex flex-col md:flex-row justify-between w-full border-transparent overflow-hidden hover:border-primary-400 hover:bg-gray-100 px-6 py-4 mt-4">
           <div>
             <div class="flex">
-              <div class="font-semibold text-xl"><%= link_to "##{print_job.ref_no}: #{print_job.name}", print_job_path(print_job), class: 'text-blue-500 cursor-pointer' %></div>
-              <%= link_to edit_print_job_path(print_job), class: 'text-blue-500 underline cursor-pointer' do %>
+              <div class="font-semibold text-lg"><%= link_to "##{print_job.ref_no}: #{print_job.name}", print_job_path(print_job), class: 'cursor-pointer' %></div>
+              <%= link_to edit_print_job_path(print_job), class: 'text-gray-900 underline cursor-pointer' do %>
                 <i class="material-icons ml-2 text-gray-600 text-lg pt-1">edit</i>
               <% end %>
             </div>
@@ -107,23 +113,23 @@
             </div>
           </div>
           <div>
-            <div class="mt-4 text-sm">CUSTOMER</div>
+            <div class="mt-1 text-sm">CUSTOMER</div>
             <div class="text-lg font-semibold"><%= print_job.customer.name %></div>
           </div>
 
           <div>
-            <div class="mt-4 text-sm">STATUS</div>
+            <div class="mt-1 text-sm">STATUS</div>
             <div class="w-full">
               <div class="flex print-job-state-<%= PrintJob.states[print_job.state] %> py-1 rounded-lg text-sm font-semibold"><%= print_job.state %></div>
             </div>
           </div>
-          <div class="text-left md:text-right pt-2 md:pt-0 pl-2 mt-2 md:mt-0 flex flex-col items-center justify-center ">
+          <div class="text-left md:text-right md:pt-0 pl-2 flex flex-col items-center justify-center ">
             <div class="w-full">
               <div class="text-xs">
                 <% if print_job.state == 'Pending' %>
-                  <%= button_to 'Mark Printed', print_job_mark_printed_path(print_job), class: 'py-1 px-2 bg-orange-400 rounded text-white' %>
+                  <%= button_to 'Mark Printed', print_job_mark_printed_path(print_job), class: 'py-1 px-2 bg-orange-400 rounded' %>
                 <% elsif print_job.state == 'Printed' %>
-                  <%= link_to 'Mark Delivered', print_job_delivery_note_form_path(print_job), class: 'py-1 px-2 bg-green-400 rounded text-white' %>
+                  <%= link_to 'Mark Delivered', print_job_delivery_note_form_path(print_job), class: 'py-1 px-2 bg-green-400 rounded' %>
                 <% else %>
                   <div class="text-green-500 text-lg font-semibold">Done</div>
                 <% end %>

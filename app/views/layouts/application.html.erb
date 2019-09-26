@@ -27,35 +27,33 @@
 
 <body class="bg-gray-100">
 <% unless @hide_navbar %>
-  <section id="header" class="header shadow-md bg-white">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light navbar-container d-flex justify-content-between max-w-5xl mx-auto">
-        <a class="navbar-brand -ml-6" href="<%= root_path %>">
-          <%= image_tag("logo.png", :alt => "VERTECHS IMAGING", class: "w-30 h-20") %>
-        </a>
-        <div class="d-flex items-center">
-          <% if current_user %>
-            <%= image_tag(current_user.avatar, alt: current_user.name, class: "rounded-full w-12 h-12 mr-2") %>
-            <div class="flex-col">
-              <div class="font-bold text-md text-gray-600 mr-1">
-                <%= current_user.name.titleize %>
-              </div>
-              <%= button_to destroy_user_session_path, method: :delete, class: "text-xs px-1 py-1 rounded shadow-sm border border-gray-500 text-gray-600" do %>
-                <div class="flex items-center">
-                  <i class="material-icons pr-1">exit_to_app</i>
-                  <span>Logout</span>
-                </div>
-              <% end %>
+  <section id="header" class="header border-b bg-white">
+    <nav class="max-w-5xl mx-auto flex justify-between py-2 px-3">
+      <a href="<%= root_path %>">
+        <%= image_tag("logo.png", :alt => "VERTECHS IMAGING", class: "w-30 h-20") %>
+      </a>
+      <div class="flex items-center">
+        <% if current_user %>
+          <%= image_tag(current_user.avatar, alt: current_user.name, class: "rounded-full w-12 h-12 mr-2") %>
+          <div class="flex-col">
+            <div class="font-bold text-md text-gray-600 mr-1">
+              <%= current_user.name.titleize %>
             </div>
-          <% end %>
-        </div>
-      </nav>
-    </div>
+            <%= button_to destroy_user_session_path, method: :delete, class: "text-xs px-1 py-1 rounded shadow-sm border border-gray-500 text-gray-600" do %>
+              <div class="flex items-center">
+                <i class="material-icons pr-1">exit_to_app</i>
+                <span>Logout</span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
   </section>
 <% end %>
 
 
-<div class="container mx-auto max-w-5xl">
+<div class="mx-auto max-w-5xl px-3">
   <%= yield %>
 </div>
 
