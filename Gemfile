@@ -72,3 +72,6 @@ gem "cocoon"
 
 # Bootstrap powered datepicker
 gem 'bootstrap-datepicker-rails'
+
+# A Ruby library for generating initial avatars and identicons.
+gem 'scarf', '~> 0.2'

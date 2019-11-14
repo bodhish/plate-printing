@@ -56,7 +56,7 @@
       <% end %>
     </div>
   </div>
-  <div class="border-t bg-white rounded-lg py-4">
+  <div class="border-t bg-white rounded-lg py-4 mb-2">
     <div class="max-w-3xl mx-auto">
       <div class=" text-sm">Reference Number</div>
       <div class="text-lg font-semibold"><%= @print_job.ref_no %></div>
@@ -72,4 +72,7 @@
       <% end %>
     </div>
   </div>
+  <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline px-4" do %>
+    Close
+  <% end %>
 </div>
