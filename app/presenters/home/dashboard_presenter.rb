@@ -1,7 +1,7 @@
 module Home
   class DashboardPresenter < ::ApplicationPresenter
     def date
-      params[:date_filter] ? Time.zone.strptime(params[:date_filter][:for_date], '%d-%m-%y'): Time.zone.now
+      params[:date_filter] ? Time.zone.strptime(params[:date_filter][:for_date], '%d-%m-%Y'): Time.zone.now
     end
 
     def monthly_stats
