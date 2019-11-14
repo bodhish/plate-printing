@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="flex flex-row justify-between max-w-5xl mx-auto px-1">
+  <div class="flex flex-col md:flex-row justify-between max-w-5xl mx-auto px-1">
     <div>
       <%= bootstrap_form_for(:date_filter, layout: :inline, url: root_path, method: :get) do |f| %>
         <% date_picker_data = {provide: 'datepicker', 'date-format': 'dd-mm-yy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true} %>
@@ -64,14 +64,20 @@
         <%= f.form_group do %>
           <%= f.submit 'Go', class: 'text-sm px-2 py-1 rounded shadow-sm bg-blue-700  text-white', wrapper: false %>
         <% end %>
+        <%= button_to root_path, method: :get, class: "text-xs px-1 py-1 ml-2 -mt-3 md:mt-0 rounded shadow-sm bg-blue-700  text-white" do %>
+          <div class="flex items-center">
+            <i class="material-icons md:pr-1">today</i>
+            <span class="hidden md:block">Today</span>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <div class="flex">
       <div>
         <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-700  text-white" do %>
-          <div class="flex items-center">
+          <div class="flex items-center px-4">
             <i class="material-icons md:pr-1">add</i>
-            <span class="hidden md:block">Add Job</span>
+            <span>Add Job</span>
           </div>
         <% end %>
       </div>
