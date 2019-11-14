@@ -13,8 +13,8 @@
     <div class="max-w-3xl mx-auto mt-4 py-4">
       <%= bootstrap_form_for(@print_job, layout: :horizontal,) do |f| %>
         <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference Number', required: true, maxlength: 255, value: @presenter.next_ref_no %>
-        <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
         <%= f.select :customer_id, @presenter.customers, { label: "Select a customer", selected: 0 } %>
+        <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
         <div id="plate_jobs" class="p-2 bg-gray-100 rounded-lg mb-2 border py-2 text-center">
           <%= f.fields_for :plate_jobs do |plate| %>
             <%= render 'plate_job_fields', f: plate %>
