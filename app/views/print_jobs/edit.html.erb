@@ -17,5 +17,8 @@
     </div>
     <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
     <%= f.submit "Update", class: 'text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white' %>
+    <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
+      Cancel
+    <% end %>
   <% end %>
 </div>

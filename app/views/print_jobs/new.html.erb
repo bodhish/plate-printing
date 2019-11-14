@@ -1,7 +1,13 @@
 <% @presenter = ::PrintJobs::NewPresenter.new(self) %>
 <div class="my-4 py-4 border rounded shadow-lg p-4 bg-white">
-  <div class="font-semibold text-4xl max-w-3xl mx-auto py-4 text-blue-500">
-    New Job
+  <div class="font-semibold text-4xl max-w-3xl mx-auto py-4 text-blue-500 flex flex-row justify-between">
+    <span>New Job</span>
+    <%= button_to root_path, method: :get, class: "text-sm text-grey-500" do %>
+      <div class="flex items-center">
+        <i class="material-icons">close</i>
+        <span class="hidden md:block">Close</span>
+      </div>
+    <% end %>
   </div>
   <div class="border-t">
     <div class="max-w-3xl mx-auto mt-4 py-4">
@@ -21,6 +27,9 @@
         <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
         </div>
         <%= f.submit "Submit", class: 'text-sm px-6 py-2 rounded shadow-sm bg-blue-500 text-white' %>
+        <%= link_to root_path, class: "text-sm px-6 py-2 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
+          Cancel
+        <% end %>
       <% end %>
     </div>
   </div>
