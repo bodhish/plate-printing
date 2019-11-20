@@ -17,7 +17,7 @@ module PrintJobs
     end
 
     def next_ref_no
-      (PrintJob.maximum(:ref_no) || 0) + 1
+      (PrintJob.last&.ref_no || 0) + 1
     end
   end
 end
