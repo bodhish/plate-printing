@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_172135) do
+ActiveRecord::Schema.define(version: 2019_11_25_144500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_172135) do
     t.datetime "delivered_at"
     t.datetime "printed_at"
     t.bigint "delivered_by_id"
+    t.date "job_on"
     t.index ["assignee_id"], name: "index_print_jobs_on_assignee_id"
     t.index ["customer_id"], name: "index_print_jobs_on_customer_id"
     t.index ["delivered_by_id"], name: "index_print_jobs_on_delivered_by_id"

@@ -39,8 +39,8 @@
     </div>
     <div class="mt-4 flex justify-between">
       <div>
-        <div class="mt-4 text-sm">Created at</div>
-        <div class="text-lg font-semibold"><%= @print_job.created_at.strftime('%b %e, %l:%M %p') %></div>
+        <div class="mt-4 text-sm">Job Date</div>
+        <div class="text-lg font-semibold"><%= @print_job.job_on.strftime('%b %e \'%y') %></div>
       </div>
       <% if @print_job.state != 'Pending' %>
         <div>

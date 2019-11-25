@@ -10,7 +10,6 @@ class PrintJobsController < HomeController
   def create
     job = PrintJob.new(create_params.merge!(assignee: current_user))
     if job.save!
-      # job.plate_jobs.create!(plate_job_params[:plate_job])
       flash[:success] = 'Job created successfully'
       redirect_to root_path
     else
@@ -71,15 +70,11 @@ class PrintJobsController < HomeController
   private
 
   def create_params
-    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
+    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :job_on, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
   end
 
   def update_params
-    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :status, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
-  end
-
-  def plate_job_params
-    params.require(:print_job).permit(plate_job: [:plate_dimension_id])
+    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :status, :job_on, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
   end
 
   def mark_delivered_params

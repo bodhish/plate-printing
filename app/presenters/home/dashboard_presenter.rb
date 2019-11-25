@@ -21,7 +21,7 @@ module Home
     end
 
     def jobs_on_day
-     @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(created_at: date_window).includes(:customer, plate_jobs: :plate_dimension).order(created_at: :desc)
+     @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_jobs: :plate_dimension).order(created_at: :desc)
     end
 
     def customer_dropdown_options
@@ -31,7 +31,7 @@ module Home
     private
 
     def jobs_in_month
-      PrintJob.where(customer_id: filtered_customer_ids).where(created_at: month_window)
+      PrintJob.where(customer_id: filtered_customer_ids).where(job_on: month_window)
     end
 
     def plates_in_month
