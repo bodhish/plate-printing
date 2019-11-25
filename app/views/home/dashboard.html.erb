@@ -91,9 +91,9 @@
     <div class="flex flex-col justify-center items-center max-w-5xl mt-2 rounded-lg  shadow-md">
       <% presenter.jobs_on_day.map do |print_job| %>
         <div class="bg-white flex flex-col md:flex-row justify-between w-full border-b border-gray-200 overflow-hidden px-6 py-2 items-center">
-          <div class="w-1/3">
+          <div class="w-full md:w-1/3">
             <div class="flex">
-              <div class="font-normal text-lg"><%= link_to "##{print_job.ref_no}: #{print_job.customer.name}", print_job_path(print_job), class: 'cursor-pointer' %></div>
+              <div class="font-normal text-base md:text-lg truncate"><%= link_to "##{print_job.ref_no}: #{print_job.customer.name}", print_job_path(print_job), class: 'cursor-pointer' %></div>
               <%= link_to edit_print_job_path(print_job), class: 'text-gray-900 underline cursor-pointer hidden' do %>
                 <i class="material-icons ml-2 text-gray-600 text-lg pt-1">edit</i>
               <% end %>
