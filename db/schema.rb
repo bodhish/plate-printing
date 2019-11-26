@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_144500) do
+ActiveRecord::Schema.define(version: 2019_11_26_133102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 2019_11_25_144500) do
     t.string "avatar"
     t.boolean "is_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "weekly_targets", force: :cascade do |t|
+    t.date "start_on"
+    t.integer "plate_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "plate_jobs", "plate_dimensions"

@@ -20,6 +20,23 @@ module Home
       }
     end
 
+    def weekly_target_stats
+      week_start = prior_saturday(date)
+      target = WeeklyTarget.find_by(start_on: week_start)&.plate_count
+      return {} if target.nil?
+
+      plates_used = PrintJob.where(job_on: week_start..(week_start + 6.days)).count
+      percentage_completed = (plates_used/target)*100 if target.present?
+
+      {
+        target: target,
+        plates_used: plates_used,
+        week_start: week_start.strftime('%b %e'),
+        week_end: (week_start + 6.days).strftime('%b %e'),
+        color_class: (percentage_completed < 25 ? 'bg-danger' : (percentage_completed < 75 ? 'bg-warning' : 'bg-success'))
+      }
+    end
+
     def jobs_on_day
      @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_jobs: :plate_dimension).order(created_at: :desc)
     end
@@ -60,6 +77,11 @@ module Home
 
     def filtered_customer_ids
       @filtered_customer_ids ||= params[:filter].try(:[],:customer_id).present? ? params[:filter][:customer_id] : Customer.all.pluck(:id)
+    end
+
+    def prior_saturday(date)
+      days_before = (date.wday + 1) % 7
+      date.to_date - days_before
     end
   end
 end

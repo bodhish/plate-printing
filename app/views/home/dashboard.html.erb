@@ -53,7 +53,15 @@
       </div>
     </div>
   </div>
-
+  <% unless presenter.weekly_target_stats.blank? %>
+    <% stats = presenter.weekly_target_stats %>
+    <div class="flex flex-col justify-between max-w-5xl mx-auto lg:px-1 pb-4">
+      <div>Weekly target<span class="text-xs hidden lg:inline-block">&nbsp;(<%= stats[:week_start] %> - <%= stats[:week_end] %>)</span></div>
+      <div class="progress w-full mt-2">
+        <div class="progress-bar progress-bar-striped <%= stats[:color_class] %>" style="width:<%= [stats[:plates_used]/stats[:target], 25].max %>%"><%= stats[:plates_used] %>/<%= stats[:target] %></div>
+      </div>
+    </div>
+  <% end %>
   <div class="flex flex-col lg:flex-row justify-between max-w-5xl mx-auto lg:px-1">
     <div class="mb-4">
       <%= bootstrap_form_for(:filter, layout: :inline, url: root_path, method: :get) do |f| %>

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_on: 2019-11-26
+  plate_count: 1
+
+two:
+  start_on: 2019-11-26
+  plate_count: 1
