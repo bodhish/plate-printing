@@ -26,7 +26,7 @@ module Home
       return {} if target.nil?
 
       plates_used = PrintJob.where(job_on: week_start..(week_start + 6.days)).count
-      percentage_completed = (plates_used/target)*100 if target.present?
+      percentage_completed = ((plates_used.to_f/target)*100).to_i if target.present?
 
       {
         target: target,
