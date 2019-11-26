@@ -25,7 +25,7 @@ module Home
       target = WeeklyTarget.find_by(start_on: week_start)&.plate_count
       return {} if target.nil?
 
-      plates_used = PrintJob.where(job_on: week_start..(week_start + 6.days)).count
+      plates_used = PlateJob.joins(:print_job).where(print_job: PrintJob.where(job_on: week_start..(week_start + 6.days))).map { |pj| pj.set * pj.color }.sum
       percentage_completed = ((plates_used.to_f/target)*100).to_i if target.present?
 
       {
