@@ -33,6 +33,7 @@ module Home
         plates_used: plates_used,
         week_start: week_start.strftime('%b %e'),
         week_end: (week_start + 6.days).strftime('%b %e'),
+        percentage_completed: percentage_completed,
         color_class: (percentage_completed < 25 ? 'bg-danger' : (percentage_completed < 75 ? 'bg-warning' : 'bg-success'))
       }
     end
