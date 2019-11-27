@@ -1,0 +1,57 @@
+<% presenter = ::Layouts::ApplicationPresenter.new(self) %>
+<!DOCTYPE html>
+<html lang='en' data-flash="<%= presenter.flash_messages %>">
+<head>
+  <title>PlatePrinting</title>
+  <%= favicon_link_tag asset_path('vertex_favicon.png') %>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'shared/flashes', media: 'all' %>
+  <%= stylesheet_pack_tag 'layouts/tailwind', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,800" rel="stylesheet" >
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <%= javascript_pack_tag 'shared/flashes', 'data-turbolinks-track': 'reload', nonce: true %>
+  <%= javascript_pack_tag 'layouts/tailwind', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
+
+<body class="bg-gray-100">
+<% unless @hide_navbar %>
+  <section id="header" class="header border-b bg-white">
+    <nav class="max-w-5xl mx-auto flex justify-between py-2 px-3">
+      <a href="<%= root_path %>">
+        <%= image_tag("logo.png", :alt => "VERTECHS IMAGING", class: "w-30 h-20") %>
+      </a>
+      <div class="flex items-center">
+        <% if current_user %>
+          <%= image_tag(current_user.avatar, alt: current_user.name, class: "rounded-full w-12 h-12 mr-2") %>
+          <div class="flex-col">
+            <div class="font-bold text-md text-gray-600 mr-1">
+              <%= current_user.name.titleize %>
+            </div>
+            <%= button_to destroy_user_session_path, method: :delete, class: "text-xs px-1 py-1 rounded shadow-sm border border-gray-500 text-gray-600" do %>
+              <div class="flex items-center">
+                <i class="material-icons pr-1">exit_to_app</i>
+                <span>Logout</span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+  </section>
+<% end %>
+
+
+<div class="mx-auto max-w-5xl px-3">
+  <%= yield %>
+</div>
+
+</body>
+</html>
