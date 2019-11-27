@@ -27,6 +27,14 @@
             </div>
           </div>
         <% end %>
+        <div class="flex justify-between  border p-2 mt-2">
+          <div class="font-semibold">
+            Total
+          </div>
+          <div class="font-semibold">
+            <%= pa[:plates].pluck(:qty).sum %>
+          </div>
+        </div>
       </div>
     <% end %>
     <div class="w-full md:w-1/4 mt-4">
@@ -74,6 +82,14 @@
             </div>
           </div>
         <% end %>
+        <div class="flex justify-between  border p-2 mt-2">
+          <div class="font-semibold">
+            Total
+          </div>
+          <div class="font-semibold">
+            <%= pa[:customers].pluck(:qty).sum %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
@@ -106,6 +122,14 @@
             </div>
           </div>
         <% end %>
+        <div class="flex justify-between  border p-2 mt-2">
+          <div class="font-semibold">
+            Total
+          </div>
+          <div class="font-semibold">
+            <%= pa[:jobs].pluck(:wastage).sum %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
