@@ -18,15 +18,15 @@ module Admin
     def total_jobs_array
       [
         {
-          title: 'Customer Wise - Jobs Today',
+          title: 'Jobs Today',
           customers: total_jobs_on_day
         },
         {
-          title: 'Customer Wise - Jobs This Week',
+          title: 'Jobs This Week',
           customers: total_jobs_in_week
         },
         {
-          title: 'Customer Wise - Jobs This Month',
+          title: 'Jobs This Month',
           customers: total_jobs_in_month
         }
       ]
@@ -159,7 +159,7 @@ module Admin
       end
       PrintJob.where(id: cache.keys).map do |p|
         {
-          id: p.id,
+          ref_no: p.ref_no,
           wastage: cache[p.id]
         }
       end
