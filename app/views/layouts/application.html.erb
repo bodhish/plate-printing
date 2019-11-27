@@ -13,7 +13,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'shared/flashes', media: 'all' %>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,800" rel="stylesheet" >
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.css" rel="stylesheet">
   <%= stylesheet_pack_tag 'layouts/tailwind', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -35,6 +35,11 @@
       </a>
       <div class="flex items-center">
         <% if current_user %>
+          <% if current_user.is_admin? %>
+            <a class="mr-4 hidden md:inline-block" href="./admin_dashboard">
+              Admin Dashboard
+            </a>
+          <% end %>
           <%= image_tag(current_user.avatar, alt: current_user.name, class: "rounded-full w-12 h-12 mr-2") %>
           <div class="flex-col">
             <div class="font-bold text-md text-gray-600 mr-1">
