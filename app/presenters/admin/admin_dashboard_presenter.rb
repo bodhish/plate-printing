@@ -15,6 +15,25 @@ module Admin
       ]
     end
 
+    def total_jobs_array
+      [
+        {
+          title: 'Customer Wise - Jobs Today',
+          customers: total_jobs_on_day
+        },
+        {
+          title: 'Customer Wise - Jobs This Week',
+          customers: total_jobs_in_week
+        },
+        {
+          title: 'Customer Wise - Jobs This Month',
+          customers: total_jobs_in_month
+        }
+      ]
+    end
+
+    private
+
     def plates_used_on_day
       plates_used_by_size(plates_on_day)
     end
@@ -27,12 +46,20 @@ module Admin
       total_jobs_by_customers(jobs_on_day)
     end
 
+    def total_jobs_in_week
+      total_jobs_by_customers(jobs_in_week)
+    end
+
     def total_jobs_in_month
       total_jobs_by_customers(jobs_in_month)
     end
 
     def jobs_on_day
       @jobs_on_day ||= PrintJob.where(job_on: date_window)
+    end
+
+    def jobs_in_week
+      @jobs_in_week ||= PrintJob.where(job_on: week_window)
     end
 
     def jobs_in_month
