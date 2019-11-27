@@ -32,6 +32,23 @@ module Admin
       ]
     end
 
+    def plates_wasted_array
+      [
+        {
+          title: 'Today',
+          jobs: wastage_on_day
+        },
+        {
+          title: 'This Week',
+          jobs: wastage_in_week
+        },
+        {
+          title: 'This Month',
+          jobs: wastage_in_month
+        }
+      ]
+    end
+
     private
 
     def plates_used_on_day
@@ -67,19 +84,27 @@ module Admin
     end
 
     def plates_in_month
-      PlateJob.joins(:print_job).where(print_job: jobs_in_month)
-    end
-
-    def wastage_in_month
-      jobs_in_month.where.not(wastage: nil)
+      @plates_in_month ||= PlateJob.joins(:print_job).where(print_job: jobs_in_month)
     end
 
     def plates_on_day
       @plates_on_day ||= PlateJob.joins(:print_job).where(print_job: jobs_on_day)
     end
 
+    def plates_in_week
+      @plates_in_week ||= PlateJob.joins(:print_job).where(print_job: jobs_in_week)
+    end
+
+    def wastage_in_month
+      total_wastage(plates_in_month.where.not(wastage: 0))
+    end
+
     def wastage_on_day
-      jobs_on_day.where.not(wastage: nil)
+      total_wastage(plates_on_day.where.not(wastage: 0))
+    end
+
+    def wastage_in_week
+      total_wastage(plates_in_week.where.not(wastage: 0))
     end
 
     def date_window
@@ -123,6 +148,19 @@ module Admin
         {
           name: c.name,
           qty: customer_ids_count[c.id]
+        }
+      end
+    end
+
+    def total_wastage(jobs)
+      cache = {}
+      jobs.pluck(:print_job_id, :wastage).each do |id, count|
+        cache[id] = count
+      end
+      PrintJob.where(id: cache.keys).map do |p|
+        {
+          id: p.id,
+          wastage: cache[p.id]
         }
       end
     end
