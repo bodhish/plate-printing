@@ -10,4 +10,6 @@ Rails.application.routes.draw do
     get 'delivery_note_form', action: 'delivery_note_form'
     patch 'mark_delivered', action: 'mark_delivered'
   end
+
+  get '/admin_dashboard', action: 'admin_dashboard', controller: 'admin'
 end
