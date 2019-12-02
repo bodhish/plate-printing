@@ -19,14 +19,17 @@ module Admin
       [
         {
           title: 'Jobs Today',
+          date_window: date.strftime('%b %e'),
           customers: total_jobs_on_day
         },
         {
           title: 'Jobs This Week',
+          date_window: "#{week_start.strftime('%b %e')}..#{week_end.strftime('%b %e')}",
           customers: total_jobs_in_week
         },
         {
           title: 'Jobs This Month',
+          date_window: "#{date.beginning_of_month.strftime('%b %e')}..#{date.end_of_month.strftime('%b %e')}",
           customers: total_jobs_in_month
         }
       ]
@@ -116,7 +119,11 @@ module Admin
     end
 
     def week_window
-      @week_window ||= week_start..(week_start + 6.days)
+      @week_window ||= week_start..week_end
+    end
+
+    def week_end
+      @week_end ||= week_start + 6.days
     end
 
     def date
@@ -133,7 +140,7 @@ module Admin
     end
 
     def plates_used_by_size(plates)
-      dimension_ids_count = plates.group('plate_dimension_id').count
+      dimension_ids_count = plates.group('plate_dimension_id').sum('color * set')
       PlateDimension.all.map do |d|
         {
           size: d.dimension,
