@@ -146,7 +146,7 @@ module Admin
           size: d.dimension,
           qty: dimension_ids_count[d.id] || 0
         }
-      end
+      end.sort_by { |pd| pd[:qty] }
     end
 
     def total_jobs_by_customers(jobs)
@@ -156,7 +156,7 @@ module Admin
           name: c.name,
           qty: customer_ids_count[c.id]
         }
-      end
+      end.sort_by { |c| c[:qty] }
     end
 
     def total_wastage(jobs)
@@ -169,7 +169,7 @@ module Admin
           ref_no: p.ref_no,
           wastage: cache[p.id]
         }
-      end
+      end.sort_by { |pj| pj[:wastage] }
     end
   end
 end
