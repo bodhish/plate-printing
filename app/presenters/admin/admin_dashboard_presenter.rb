@@ -15,6 +15,7 @@ module Admin
         {
           title: 'By customers',
           plates: total_plates_by_customer,
+          key: 'Name'
         }
       ]
     end
