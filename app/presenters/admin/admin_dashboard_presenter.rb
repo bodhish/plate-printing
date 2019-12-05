@@ -10,7 +10,11 @@ module Admin
         },
         {
           title: 'This Month',
-          plates: plates_used_in_month
+          plates: plates_used_in_month,
+        },
+        {
+          title: 'By customers',
+          plates: total_plates_by_customer,
         }
       ]
     end
@@ -155,6 +159,20 @@ module Admin
         {
           name: c.name,
           qty: customer_ids_count[c.id]
+        }
+      end.sort_by { |c| -c[:qty] }
+    end
+
+    def total_plates_by_customer
+      customer_plates = {}
+      jobs_in_month.includes(:plate_jobs).each do |pm|
+        customer_plates[pm.customer.id] = (customer_plates[pm.customer.id] || 0) + pm.plate_jobs.map { |pj| pj.set * pj.color }.sum
+      end
+
+      Customer.where(id: customer_plates.keys).map do |c|
+        {
+          size: c.name,
+          qty: customer_plates[c.id]
         }
       end.sort_by { |c| -c[:qty] }
     end
