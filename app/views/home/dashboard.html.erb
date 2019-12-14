@@ -39,7 +39,13 @@
         </div>
       </div>
       <div class="absolute right-0 top-0 bg-blue-200 px-3 py-1 mr-4 rounded-b-lg text-blue-600 leading-tight">
-        <div class="text-xs font-semibold"><%= presenter.daily_stats[:plates] %> Today</div>
+        <div class="text-xs font-semibold"><%= c = presenter.daily_stats[:plates] %> Today
+          <% if c > 4 %>
+          <span>
+            (<%=c/4%>s<%= (c%4 != 0 ? " + #{c%4}" : "") %>)
+          </span>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="flex w-full md:w-1/3 items-center p-3 border border-danger rounded-lg overflow-hidden shadow-md relative mt-2">
