@@ -121,6 +121,13 @@
             </div>
             <div class="text-xs text-gray-500">
               <%= print_job.name %>
+              <% waste_count = print_job.plate_jobs.sum(:wastage) %>
+              <% if waste_count > 0 %>
+                <span class="ml-1 text-white bg-red-500 px-1 rounded">
+<!--                  <i class="material-icons text-xs">delete_forever</i>-->
+                  W <%= waste_count %>
+                </span>
+              <% end %>
             </div>
             <!--            <div class="text-xs flex">-->
             <!--              <div class="text-gray-600 bg-gray-300 px-1">-->
@@ -139,7 +146,10 @@
                   <span class="text-base"> (<%= pj.color %>
                     <span class="text-xs text-gray-500">colors</span>, <%= pj.set %>
                     <span class="text-xs text-gray-500">sets = </span><%= pj.set * pj.color %>
-                    <span class="text-xs text-gray-500">plates</span>)
+                    <span class="text-xs text-gray-500">plates</span>
+                    <% if pj.wastage > 0 %>
+                      <span class="text-red-500 text-sm"><%= " #{pj.wastage}W" %></span>
+                    <% end %>)
                 </span>
                 </div>
               <% end %>
