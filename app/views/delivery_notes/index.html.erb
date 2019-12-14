@@ -1,0 +1,23 @@
+<div class="mt-4 border rounded shadow-lg p-4 bg-white">
+  <%= bootstrap_form_for(:delivery_note, url: delivery_notes_path, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
+    <%= f.collection_select :customer_id, Customer.order(:name), :id, :name, include_blank: 'Select a customer...', required: true %>
+    <%= f.grouped_collection_select :print_jobs, Customer.order(:name), :d_note_printable_jobs, :name, :id, :name, { label: 'Jobs', include_blank: false }, { multiple: true }%>
+    <%= f.number_field :number, label: 'Note #', label_class: 'col-form-label', required: true%>
+    <%= f.submit "Create Delivery Note", class: 'text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white' %>
+  <% end %>
+</div>
+<div class="mt-4 border rounded shadow-lg p-4 bg-white">
+  <h4 class="border-b-2 border-indigo-500 pb-2">Delivery Notes:</h4>
+  <% @delivery_notes.each do |note| %>
+    <div class="flex justify-between p-2 items-center border-b border-gray-500">
+      <div class="flex-none mr-3"><%= note[:date] %></div>
+      <div class="flex-none mr-3">#<%= note[:number] %></div>
+      <div class="flex flex-col flex-grow">
+        <div><%= note[:customer_name] %></div>
+        <div class="text-sm text-gray-700"><%= note[:jobs] %></div>
+      </div>
+      <div><a href=<%= delivery_note_preview_path(note[:number], format: :pdf) %> target="_blank"><i class="material-icons ml-2 text-gray-600 text-lg pt-1">visibility</i></a></div>
+      <div><a href=<%= delivery_note_path(note[:number], format: :pdf) %> target="_blank"><i class="material-icons ml-2 text-gray-600 text-lg pt-1">print</i></a></div>
+    </div>
+  <% end %>
+</div>

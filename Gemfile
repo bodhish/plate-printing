@@ -75,3 +75,9 @@ gem 'bootstrap-datepicker-rails'
 
 # A Ruby library for generating initial avatars and identicons.
 gem 'scarf', '~> 0.2'
+
+# A Rails-centric, object oriented, featherweight framework for writing CoffeeScript.
+gem 'rails_script', '~> 2.0'
+
+# Fast, Nimble PDF Writer for Ruby
+gem 'prawn'

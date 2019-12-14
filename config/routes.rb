@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'delivery_notes/index'
+  get 'delivery_notes/create'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, only: %i[sessions omniauth_callbacks], controllers: { sessions: 'users/sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
@@ -12,4 +14,7 @@ Rails.application.routes.draw do
   end
 
   get '/admin_dashboard', action: 'admin_dashboard', controller: 'admin'
+
+  resources :delivery_notes, only: %i[create index show]
+  get 'delivery_note_preview/:id', action: 'preview', controller: 'delivery_notes', as: 'delivery_note_preview'
 end

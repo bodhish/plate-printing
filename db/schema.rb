@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(version: 2019_12_18_144554) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "delivery_notes", force: :cascade do |t|
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "plate_dimensions", force: :cascade do |t|
     t.string "dimension"
     t.datetime "created_at", precision: 6, null: false
@@ -51,9 +57,11 @@ ActiveRecord::Schema.define(version: 2019_12_18_144554) do
     t.datetime "printed_at"
     t.bigint "delivered_by_id"
     t.date "job_on"
+    t.bigint "delivery_note_id"
     t.index ["assignee_id"], name: "index_print_jobs_on_assignee_id"
     t.index ["customer_id"], name: "index_print_jobs_on_customer_id"
     t.index ["delivered_by_id"], name: "index_print_jobs_on_delivered_by_id"
+    t.index ["delivery_note_id"], name: "index_print_jobs_on_delivery_note_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_144554) do
   add_foreign_key "plate_jobs", "plate_dimensions"
   add_foreign_key "plate_jobs", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
+  add_foreign_key "print_jobs", "delivery_notes"
   add_foreign_key "print_jobs", "users", column: "assignee_id"
   add_foreign_key "print_jobs", "users", column: "delivered_by_id"
 end
