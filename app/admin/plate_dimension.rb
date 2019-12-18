@@ -1,9 +1,10 @@
 ActiveAdmin.register PlateDimension do
-  permit_params :id, :dimension
+  permit_params :id, :dimension, :name
 
   index do
     selectable_column
     id_column
+    column :name
     column :dimension
     actions
   end
@@ -12,6 +13,7 @@ ActiveAdmin.register PlateDimension do
 
   form do |f|
     f.inputs do
+      f.input :name
       f.input :dimension
     end
     f.actions

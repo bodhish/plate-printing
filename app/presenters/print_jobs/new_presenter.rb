@@ -2,7 +2,7 @@ module PrintJobs
   class NewPresenter < ::ApplicationPresenter
     def plate_dimensions
       options = PlateDimension.all.map do |plate|
-        [plate.dimension, plate.id]
+        ["#{plate.dimension} (#{plate.name})", plate.id]
       end
 
       [["Select a plate", 0]] + options

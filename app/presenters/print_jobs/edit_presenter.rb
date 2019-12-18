@@ -7,7 +7,7 @@ module PrintJobs
 
     def plate_dimensions
       PlateDimension.all.map do |plate|
-        [plate.dimension, plate.id]
+        ["#{plate.dimension} (#{plate.name})", plate.id]
       end
     end
 

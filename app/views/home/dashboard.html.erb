@@ -141,7 +141,7 @@
               <% print_job.plate_jobs.map do |pj| %>
                 <div>
                   <span class="text-base font-normal">
-                    <%= pj.plate_dimension.dimension %>
+                    <%= pj.plate_dimension.dimension %> (<%= pj.plate_dimension.name %>)
                     </span>
                   <span class="text-base"> (<%= pj.color %>
                     <span class="text-xs text-gray-500">colors</span>, <%= pj.set %>

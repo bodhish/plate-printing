@@ -65,7 +65,7 @@
       <div class="mt-4 text-sm">Customer Name</div>
       <div class="text-lg font-semibold"><%= @print_job.customer.name %></div>
       <div class="mt-4 text-sm">Plates</div>
-      <div class="text-lg font-semibold"><%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension} (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></div>
+      <div class="text-lg font-semibold"><%= @print_job.plate_jobs.map { |pj| "#{pj.plate_dimension.dimension} (#{pj.plate_dimension.name}) (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></div>
       <% if @print_job.comments.present? %>
         <div class="mt-4 text-sm">Comments</div>
         <div class="text-lg font-semibold"><%= @print_job.comments %></div>
