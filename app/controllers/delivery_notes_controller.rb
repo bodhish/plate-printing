@@ -14,8 +14,7 @@ class DeliveryNotesController < ApplicationController
     DeliveryNote.transaction do
       d = DeliveryNote.new(number: params[:delivery_note][:number])
       print_jobs = PrintJob.where(id: params[:delivery_note][:print_jobs].reject(&:empty?))
-      d.print_jobs = print_jobs
-      print_jobs.exists? && d.save! ? (flash[:success] = 'Delivery note created successfully!') : (flash[:error] = 'Something went wrong. Please try again!')
+      print_jobs.exists? && d.save! && print_jobs.update_all(delivery_note_id: d.reload.id) ? (flash[:success] = 'Delivery note created successfully!') : (flash[:error] = 'Something went wrong. Please try again!')
       redirect_to delivery_notes_path
     end
   end
