@@ -100,7 +100,7 @@ class DeliveryNoteGenerator
         # stroke_axis
         d_n.print_jobs.each do |job|
           job.plate_jobs.each do |pj|
-            text job.name
+            text "#{pj.plate_dimension.dimension} - #{job.name}"
             move_down (0.25).cm
           end
         end
