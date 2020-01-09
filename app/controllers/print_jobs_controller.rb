@@ -70,11 +70,11 @@ class PrintJobsController < HomeController
   private
 
   def create_params
-    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :job_on, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
+    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :job_on, plate_usages_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
   end
 
   def update_params
-    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :status, :job_on, plate_jobs_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
+    params.require(:print_job).permit(:ref_no, :name, :customer_id, :comments, :status, :job_on, plate_usages_attributes: [:id, :plate_dimension_id, :set, :color, :wastage, :destroy])
   end
 
   def mark_delivered_params

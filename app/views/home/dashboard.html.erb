@@ -121,7 +121,7 @@
             </div>
             <div class="text-xs text-gray-500">
               <%= print_job.name %>
-              <% waste_count = print_job.plate_jobs.sum(:wastage) %>
+              <% waste_count = print_job.plate_usages.sum(:wastage) %>
               <% if waste_count > 0 %>
                 <span class="ml-1 text-white bg-red-500 px-1 rounded">
 <!--                  <i class="material-icons text-xs">delete_forever</i>-->
@@ -138,7 +138,7 @@
           </div>
           <div>
             <div>
-              <% print_job.plate_jobs.map do |pj| %>
+              <% print_job.plate_usages.map do |pj| %>
                 <div>
                   <span class="text-base font-normal">
                     <%= pj.plate_dimension.dimension %> (<%= pj.plate_dimension.name %>)

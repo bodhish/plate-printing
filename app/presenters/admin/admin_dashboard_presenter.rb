@@ -92,15 +92,15 @@ module Admin
     end
 
     def plates_in_month
-      @plates_in_month ||= PlateJob.joins(:print_job).where(print_job: jobs_in_month)
+      @plates_in_month ||= PlateUsage.joins(:print_job).where(print_job: jobs_in_month)
     end
 
     def plates_on_day
-      @plates_on_day ||= PlateJob.joins(:print_job).where(print_job: jobs_on_day)
+      @plates_on_day ||= PlateUsage.joins(:print_job).where(print_job: jobs_on_day)
     end
 
     def plates_in_week
-      @plates_in_week ||= PlateJob.joins(:print_job).where(print_job: jobs_in_week)
+      @plates_in_week ||= PlateUsage.joins(:print_job).where(print_job: jobs_in_week)
     end
 
     def wastage_in_month
@@ -166,8 +166,8 @@ module Admin
 
     def total_plates_by_customer
       customer_plates = {}
-      jobs_in_month.includes(:plate_jobs).each do |pm|
-        customer_plates[pm.customer.id] = (customer_plates[pm.customer.id] || 0) + pm.plate_jobs.map { |pj| pj.set * pj.color }.sum
+      jobs_in_month.includes(:plate_usages).each do |pm|
+        customer_plates[pm.customer.id] = (customer_plates[pm.customer.id] || 0) + pm.plate_usages.map { |pj| pj.set * pj.color }.sum
       end
 
       Customer.where(id: customer_plates.keys).map do |c|

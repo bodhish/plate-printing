@@ -21,7 +21,7 @@ class DeliveryNoteGenerator
         stroke_bounds
         stroke_axis
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text pj.plate_dimension.name, align: :center
             move_down (0.25).cm
           end
@@ -32,7 +32,7 @@ class DeliveryNoteGenerator
         stroke_bounds
         stroke_axis
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text job.name
             move_down (0.25).cm
           end
@@ -43,7 +43,7 @@ class DeliveryNoteGenerator
         stroke_bounds
         stroke_axis
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text "#{pj.set} x #{pj.color}", align: :center
             move_down (0.25).cm
           end
@@ -54,7 +54,7 @@ class DeliveryNoteGenerator
         stroke_bounds
         stroke_axis
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text (pj.set * pj.color).to_s, align: :center
             move_down (0.25).cm
           end
@@ -66,7 +66,7 @@ class DeliveryNoteGenerator
         stroke_axis
         n = 0
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             n += pj.set * pj.color
           end
         end
@@ -89,7 +89,7 @@ class DeliveryNoteGenerator
 
       bounding_box([45, 250], width: 40, height: 110) do
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text pj.plate_dimension.name, align: :center
             move_down (0.25).cm
           end
@@ -99,7 +99,7 @@ class DeliveryNoteGenerator
       bounding_box([100, 250], width: 350, height: 110) do
         # stroke_axis
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text "#{pj.plate_dimension.dimension} - #{job.name}"
             move_down (0.25).cm
           end
@@ -108,7 +108,7 @@ class DeliveryNoteGenerator
 
       bounding_box([450, 250], width: 50, height: 110) do
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text "#{pj.set} x #{pj.color}", align: :center
             move_down (0.25).cm
           end
@@ -117,7 +117,7 @@ class DeliveryNoteGenerator
 
       bounding_box([510, 250], width: 50, height: 110) do
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             text (pj.set * pj.color).to_s, align: :center
             move_down (0.25).cm
           end
@@ -127,7 +127,7 @@ class DeliveryNoteGenerator
       bounding_box([510, 129], width: 50, height: 12) do
         n = 0
         d_n.print_jobs.each do |job|
-          job.plate_jobs.each do |pj|
+          job.plate_usages.each do |pj|
             n += pj.set * pj.color
           end
         end

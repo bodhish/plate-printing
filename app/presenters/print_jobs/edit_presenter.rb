@@ -18,7 +18,7 @@ module PrintJobs
     end
 
     def plate
-      @print_job.plate_jobs.where(is_wasted: false).last
+      @print_job.plate_usages.where(is_wasted: false).last
     end
   end
 end

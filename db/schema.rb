@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_18_144554) do
+ActiveRecord::Schema.define(version: 2020_01_09_174322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 2019_12_18_144554) do
     t.string "name"
   end
 
-  create_table "plate_jobs", force: :cascade do |t|
+  create_table "plate_usages", force: :cascade do |t|
     t.bigint "print_job_id"
     t.bigint "plate_dimension_id"
     t.integer "set"
     t.integer "color"
     t.integer "wastage", default: 0
-    t.index ["print_job_id"], name: "index_plate_jobs_on_print_job_id"
+    t.index ["print_job_id"], name: "index_plate_usages_on_print_job_id"
   end
 
   create_table "print_jobs", force: :cascade do |t|
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 2019_12_18_144554) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "plate_jobs", "plate_dimensions"
-  add_foreign_key "plate_jobs", "print_jobs", on_delete: :cascade
+  add_foreign_key "plate_usages", "plate_dimensions"
+  add_foreign_key "plate_usages", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
   add_foreign_key "print_jobs", "delivery_notes"
   add_foreign_key "print_jobs", "users", column: "assignee_id"

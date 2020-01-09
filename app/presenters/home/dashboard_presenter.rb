@@ -24,7 +24,7 @@ module Home
       week_start = prior_saturday(date)
       target = WeeklyTarget.find_by(start_on: week_start)&.plate_count || 450
 
-      plates_used = PlateJob.joins(:print_job).where(print_job: PrintJob.where(job_on: week_start..(week_start + 6.days))).map { |pj| pj.set * pj.color }.sum
+      plates_used = PlateUsage.joins(:print_job).where(print_job: PrintJob.where(job_on: week_start..(week_start + 6.days))).map { |pj| pj.set * pj.color }.sum
       percentage_completed = ((plates_used.to_f/target)*100).to_i
 
       {
@@ -38,7 +38,7 @@ module Home
     end
 
     def jobs_on_day
-     @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_jobs: :plate_dimension).order(created_at: :desc)
+     @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_usages: :plate_dimension).order(created_at: :desc)
     end
 
     def customer_dropdown_options
@@ -52,19 +52,19 @@ module Home
     end
 
     def plates_in_month
-      PlateJob.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_in_month).map { |pj| pj.set * pj.color }.sum
+      PlateUsage.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_in_month).map { |pj| pj.set * pj.color }.sum
     end
 
     def wastage_in_month
-      PlateJob.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_in_month).sum(:wastage)
+      PlateUsage.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_in_month).sum(:wastage)
     end
 
     def plates_on_day
-      PlateJob.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_on_day).map { |pj| pj.set * pj.color }.sum
+      PlateUsage.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_on_day).map { |pj| pj.set * pj.color }.sum
     end
 
     def wastage_on_day
-      PlateJob.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_on_day).sum(:wastage)
+      PlateUsage.joins(:print_job).where(print_jobs: { customer_id: filtered_customer_ids }).where(print_job: jobs_on_day).sum(:wastage)
     end
 
     def date_window

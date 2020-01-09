@@ -9,12 +9,12 @@
     <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
     <% date_picker_data = {provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true} %>
     <%= f.text_field :job_on, label_class: 'col-form-label', label: 'Job Date', data: date_picker_data, value: @print_job.job_on.strftime('%d-%m-%Y'), autocomplete: "off" %>
-    <div id="plate_jobs" class="offset-md-3 p-2 bg-gray-100 rounded-lg mb-2">
-      <%= f.fields_for :plate_jobs do |plate| %>
-        <%= render 'plate_job_fields', f: plate %>
+    <div id="plate_usages" class="offset-md-3 p-2 bg-gray-100 rounded-lg mb-2">
+      <%= f.fields_for :plate_usages do |plate| %>
+        <%= render 'plate_usage_fields', f: plate %>
       <% end %>
       <div class="links">
-        <%= link_to_add_association '+ Add Plate', f, :plate_jobs, class: 'bg-green-400 p-1 rounded text-xs text-white' %>
+        <%= link_to_add_association '+ Add Plate', f, :plate_usages, class: 'bg-green-400 p-1 rounded text-xs text-white' %>
       </div>
     </div>
     <%= f.text_area :comments, label_class: 'col-form-label', label: 'Add your comments', placeholder: "Leave a comment...", required: false %>
