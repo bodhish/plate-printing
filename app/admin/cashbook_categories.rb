@@ -1,4 +1,5 @@
 ActiveAdmin.register CashbookCategory do
+  menu parent: 'Cashbook', label: 'Categories'
   actions :index, :show, :create, :edit, :new, :update
   permit_params :id, :name
 

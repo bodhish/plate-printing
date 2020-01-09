@@ -1,5 +1,6 @@
 ActiveAdmin.register CashbookEntry do
-  permit_params :id, :recorded_at, :particular, :amount, :cashbook_category, :user
+  menu parent: 'Cashbook', label: 'Entries'
+  permit_params :id, :recorded_at, :particular, :amount, :category_id, :recorded_by_id
 
   index do
     column :particular

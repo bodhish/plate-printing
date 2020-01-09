@@ -10,8 +10,8 @@ class CashbookEntriesController < HomeController
   def create
     cashbook_entry = CashbookEntry.new(create_params.merge!(recorded_by: current_user, recorded_at: DateTime.now))
     if cashbook_entry.save!
-      flash[:success] = 'Job created successfully'
-      redirect_to root_path
+      flash[:success] = 'Cashbook entry created successfully'
+      redirect_to cashbook_path
     else
       flash[:error] = 'Error'
       render new
@@ -19,7 +19,7 @@ class CashbookEntriesController < HomeController
   end
 
   def edit
-    @print_job = CashbookEntry.find(params[:id])
+    @cashbook_entry = CashbookEntry.find(params[:id])
   end
 
   def update
@@ -28,7 +28,7 @@ class CashbookEntriesController < HomeController
 
     if cashbook_entry.update!(update_params)
       flash[:success] = 'Cashbook entry updated successfully'
-      redirect_to root_path
+      redirect_to cashbook_path
     else
       flash[:error] = 'Error'
       render edit

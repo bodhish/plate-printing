@@ -1,12 +1,12 @@
-<div class="d-flex justify-content-between ">
-  <h1 class="">
-    Cashbook Entries
+<div class="d-flex justify-content-between mt-4">
+  <h1 class="text-xl font-bold">
+    Cashbook
   </h1>
   <div>
-    <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+    <%= button_to new_cashbook_entry_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
       <div class="flex items-center">
         <i class="material-icons pr-1">add</i>
-        <span>Add Job</span>
+        <span>Add Cashbook Entry</span>
       </div>
     <% end %>
   </div>
@@ -26,7 +26,7 @@
     <tbody class="text-gray-700 md:text-sm text-xs">
     <% @cashbook_entries.map do |cashbook_entry| %>
       <tr>
-        <td><%= "##{cashbook_entry.id}" %></td>
+        <td><%= link_to "##{cashbook_entry.id}", edit_cashbook_entry_path(cashbook_entry), class: 'text-blue-500 underline cursor-pointer' %></td>
         <td> <%= cashbook_entry.particular %></td>
         <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
         <td> <%= cashbook_entry.recorded_by.name %></td>
