@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_174322) do
+ActiveRecord::Schema.define(version: 2020_01_09_181211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,23 @@ ActiveRecord::Schema.define(version: 2020_01_09_174322) do
     t.string "name"
   end
 
+  create_table "plate_pricings", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "plate_dimension_id", null: false
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_plate_pricings_on_customer_id"
+    t.index ["plate_dimension_id"], name: "index_plate_pricings_on_plate_dimension_id"
+  end
+
   create_table "plate_usages", force: :cascade do |t|
     t.bigint "print_job_id"
     t.bigint "plate_dimension_id"
     t.integer "set"
     t.integer "color"
     t.integer "wastage", default: 0
+    t.float "price"
     t.index ["print_job_id"], name: "index_plate_usages_on_print_job_id"
   end
 
@@ -83,6 +94,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_174322) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "plate_pricings", "customers"
+  add_foreign_key "plate_pricings", "plate_dimensions"
   add_foreign_key "plate_usages", "plate_dimensions"
   add_foreign_key "plate_usages", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
