@@ -4,7 +4,7 @@ class CreateCashbookTable < ActiveRecord::Migration[6.0]
       t.string :name
     end
 
-    create_table :cashbook_tables do |t|
+    create_table :cashbook_entries do |t|
       t.datetime :recorded_at
       t.string :particular
       t.float :amount

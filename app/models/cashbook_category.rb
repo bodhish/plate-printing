@@ -1,0 +1,3 @@
+class CashbookCategory < ApplicationRecord
+  
+end

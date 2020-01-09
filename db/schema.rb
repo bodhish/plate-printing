@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_01_09_181304) do
     t.string "name"
   end
 
-  create_table "cashbook_tables", force: :cascade do |t|
+  create_table "cashbook_entries", force: :cascade do |t|
     t.datetime "recorded_at"
     t.string "particular"
     t.float "amount"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_181304) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cashbook_category_id"], name: "index_cashbook_tables_on_cashbook_category_id"
-    t.index ["user_id"], name: "index_cashbook_tables_on_user_id"
+    t.index ["cashbook_category_id"], name: "index_cashbook_entries_on_cashbook_category_id"
+    t.index ["user_id"], name: "index_cashbook_entries_on_user_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_181304) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "cashbook_tables", "cashbook_categories"
-  add_foreign_key "cashbook_tables", "users"
+  add_foreign_key "cashbook_entries", "cashbook_categories"
+  add_foreign_key "cashbook_entries", "users"
   add_foreign_key "plate_usages", "plate_dimensions"
   add_foreign_key "plate_usages", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
