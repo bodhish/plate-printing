@@ -1,4 +1,4 @@
 class CashbookEntry < ApplicationRecord
-  belongs_to :cashbook_category
-  belongs_to :user
+  belongs_to :category, class_name: 'CashbookCategory'
+  belongs_to :recorded_by, class_name: 'User'
 end

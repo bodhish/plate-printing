@@ -8,10 +8,10 @@ class CreateCashbookTable < ActiveRecord::Migration[6.0]
       t.datetime :recorded_at
       t.string :particular
       t.float :amount
-      t.references :cashbook_category, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
+    add_reference :cashbook_entries, :recorded_by, index: true, foreign_key: { to_table: :users }
+    add_reference :cashbook_entries, :category, index: true, foreign_key: { to_table: :cashbook_categories }
   end
 end

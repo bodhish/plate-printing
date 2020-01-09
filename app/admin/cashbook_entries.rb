@@ -14,13 +14,13 @@ ActiveAdmin.register CashbookEntry do
 
   form do |f|
     f.object.recorded_at = DateTime.now
-    f.object.user = current_user
+    f.object.recorded_by = current_user
     f.inputs do
       f.input :particular
       f.input :amount
       f.input :recorded_at
-      f.input :cashbook_category
-      f.input :user
+      f.input :category
+      f.input :recorded_by
     end
     f.actions
   end

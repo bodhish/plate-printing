@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between ">
+  <h1 class="">
+    Cashbook Entries
+  </h1>
+  <div>
+    <%= button_to new_print_job_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+      <div class="flex items-center">
+        <i class="material-icons pr-1">add</i>
+        <span>Add Job</span>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="mt-4 ">
+  <table class="table shadow-sm border-2 table-borderless border-blue-500 shadow-md md:shadow-lg rounded-t-lg rounded-b-l">
+    <thead class="bg-blue-500 text-white md:text-sm text-xs">
+    <tr>
+      <th scope="col">Entry ID</th>
+      <th scope="col">Particular</th>
+      <th scope="col">Recorded At</th>
+      <th scope="col">Recorded by</th>
+      <th scope="col">Category</th>
+      <th scope="col">Amount</th>
+    </tr>
+    </thead>
+    <tbody class="text-gray-700 md:text-sm text-xs">
+    <% @cashbook_entries.map do |cashbook_entry| %>
+      <tr>
+        <td><%= "##{cashbook_entry.id}" %></td>
+        <td> <%= cashbook_entry.particular %></td>
+        <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
+        <td> <%= cashbook_entry.recorded_by.name %></td>
+        <td> <%= cashbook_entry.category.name %></td>
+        <td> <%= cashbook_entry.amount %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

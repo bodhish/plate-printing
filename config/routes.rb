@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     patch 'mark_delivered', action: 'mark_delivered'
   end
 
+  resources :cashbook_entries, only: %i[new create index edit update]
+
   get '/admin_dashboard', action: 'admin_dashboard', controller: 'admin'
 
   resources :delivery_notes, only: %i[create index show]
