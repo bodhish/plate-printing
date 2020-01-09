@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_174322) do
+ActiveRecord::Schema.define(version: 2020_01_09_181304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cashbook_categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "cashbook_tables", force: :cascade do |t|
+    t.datetime "recorded_at"
+    t.string "particular"
+    t.float "amount"
+    t.bigint "cashbook_category_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cashbook_category_id"], name: "index_cashbook_tables_on_cashbook_category_id"
+    t.index ["user_id"], name: "index_cashbook_tables_on_user_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
@@ -83,6 +99,8 @@ ActiveRecord::Schema.define(version: 2020_01_09_174322) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "cashbook_tables", "cashbook_categories"
+  add_foreign_key "cashbook_tables", "users"
   add_foreign_key "plate_usages", "plate_dimensions"
   add_foreign_key "plate_usages", "print_jobs", on_delete: :cascade
   add_foreign_key "print_jobs", "customers"
