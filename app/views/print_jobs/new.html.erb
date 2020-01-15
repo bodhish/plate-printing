@@ -11,7 +11,7 @@
   </div>
   <div class="border-t">
     <div class="max-w-3xl mx-auto mt-4 py-4">
-      <%= bootstrap_form_for(@print_job, layout: :horizontal,) do |f| %>
+      <%= bootstrap_form_for(@print_job, layout: :horizontal) do |f| %>
         <%= f.number_field :ref_no, label_class: 'col-form-label', label: 'Reference #', required: true, maxlength: 255, value: @presenter.next_ref_no %>
         <%= f.select :customer_id, @presenter.customers, { label: "Customer", selected: 0 } %>
         <%= f.text_field :name, label_class: 'col-form-label', label: 'Job Name', required: true, maxlength: 255 %>
