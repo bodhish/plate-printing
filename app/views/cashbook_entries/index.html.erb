@@ -1,19 +1,64 @@
+<% presenter = ::CashbookEntries::IndexPresenter.new(self, params) %>
+
 <div class="d-flex justify-content-between mt-4">
-  <h1 class="text-xl font-bold">
+  <h1 class="text-3xl font-bold">
     Cashbook
   </h1>
-  <div>
-    <%= button_to new_cashbook_entry_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
-      <div class="flex items-center">
-        <i class="material-icons pr-1">add</i>
-        <span>Add Cashbook Entry</span>
-      </div>
-    <% end %>
-  </div>
 </div>
 <div class="mt-4 ">
-  <table class="table shadow-sm border-2 table-borderless border-blue-500 shadow-md md:shadow-lg rounded-t-lg rounded-b-l">
-    <thead class="bg-blue-500 text-white md:text-sm text-xs">
+  <div class="flex-col flex md:flex-row md:justify-between mx-auto my-4 w-full max-w-3xl">
+    <div class="flex w-full md:w-1/2 items-center p-3 border border-primary rounded-lg overflow-hidden shadow-md relative mt-2">
+      <div class="flex items-center">
+        <div class="flex justify-center flex-shrink-0 items-center w-16 h-16 rounded-full bg-blue-200 text-blue-600">
+          <i class="material-icons text-4xl">list_alt</i>
+        </div>
+        <div class="ml-3 text-blue-600">
+          <div class="text-sm leading-tight"><%= presenter.date_from.strftime('%d-%m-%Y') %></div>
+          <div class="text-xl font-semibold leading-tight">Opening Balance</div>
+          <div class="text-4xl font-bold"><%= presenter.opening_balance %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex w-full md:w-1/2 items-center p-3 border border-success rounded-lg overflow-hidden shadow-md relative md:mx-4 mt-2">
+      <div class="flex items-center">
+        <div class="flex justify-center flex-shrink-0 items-center w-16 h-16 rounded-full bg-green-200 text-gree -600">
+          <i class="material-icons text-4xl">playlist_add_check</i>
+        </div>
+        <div class="items-center ml-3 text-green-600">
+          <p class="text-sm leading-tight"><%= presenter.date_to.strftime('%d-%m-%Y') %></p>
+          <div class="text-xl font-semibold leading-tight">Closing Balance</div>
+          <div class="text-4xl font-bold"><%= presenter.closing_balance %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 flex items-center justify-between">
+    <%= bootstrap_form_for(:filter, layout: :inline, url: cashbook_path, method: :get) do |f| %>
+      <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
+      <%= f.form_group class: 'md:mr-1 md:w-auto w-full' do %>
+        <%= f.text_field :date_from, hide_label: true, data: date_picker_data, value: presenter.date_from.strftime('%d-%m-%Y'), autocomplete: "off", wrapper: false %>
+      <% end %>
+      <%= f.form_group class: 'md:mr-1 md:w-auto w-full' do %>
+        <%= f.text_field :date_to, hide_label: true, data: date_picker_data, value: presenter.date_to.strftime('%d-%m-%Y'), autocomplete: "off", wrapper: false %>
+      <% end %>
+      <div class="md:mr-1 md:w-auto w-full flex justify-center">
+        <%= f.submit 'Filter', class: 'text-sm font-semibold px-8 py-2 rounded shadow-sm bg-blue-700  text-white mr-2', wrapper: false %>
+      </div>
+    <% end %>
+    <div>
+      <%= button_to new_cashbook_entry_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
+        <div class="flex items-center">
+          <i class="material-icons pr-1">add</i>
+          <span>Add Cashbook Entry</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <table class="table shadow-sm border-2 table-borderless border-blue-100 shadow-md md:shadow-lg rounded-t-lg rounded-b-l">
+    <thead class="bg-blue-300 text-white md:text-sm text-xs border shadow">
     <tr>
       <th scope="col">Entry ID</th>
       <th scope="col">Particular</th>
@@ -24,14 +69,14 @@
     </tr>
     </thead>
     <tbody class="text-gray-700 md:text-sm text-xs">
-    <% @cashbook_entries.map do |cashbook_entry| %>
+    <% presenter.cashbook_entries.map do |cashbook_entry| %>
       <tr>
         <td><%= link_to "##{cashbook_entry.id}", edit_cashbook_entry_path(cashbook_entry), class: 'text-blue-500 underline cursor-pointer' %></td>
         <td> <%= cashbook_entry.particular %></td>
         <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
         <td> <%= cashbook_entry.recorded_by.name %></td>
         <td> <%= cashbook_entry.category.name %></td>
-        <td> <%= cashbook_entry.amount %></td>
+        <td class="<%= presenter.amount_classes(cashbook_entry.amount) %>"> <%= cashbook_entry.amount %></td>
       </tr>
     <% end %>
     </tbody>
