@@ -96,7 +96,21 @@
       </div>
     </div>
   </div>
-  <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline px-4" do %>
-    Close
-  <% end %>
+  <div class="flex justify-between">
+    <% prev_id = PrintJob.where('id < ?', @print_job.id).last&.id %>
+    <% next_id = PrintJob.where('id > ?', @print_job.id).first&.id %>
+    <% if prev_id %>
+      <%= link_to print_job_path(prev_id), class: "text-sm py-1 rounded shadow-sm bg-green-500 text-white no-underline hover:no-underline px-4" do %>
+        <i class="material-icons">keyboard_arrow_left</i>
+      <% end %>
+    <% else %><div></div><% end %>
+    <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline px-4" do %>
+      Close
+    <% end %>
+    <% if next_id %>
+      <%= link_to print_job_path(next_id), class: "text-sm py-1 rounded shadow-sm bg-green-500 text-white no-underline hover:no-underline px-4" do %>
+        <i class="material-icons">keyboard_arrow_right</i>
+      <% end %>
+    <% else %><div></div><% end %>
+  </div>
 </div>
