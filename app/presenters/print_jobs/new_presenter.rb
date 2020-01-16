@@ -19,5 +19,13 @@ module PrintJobs
     def next_ref_no
       (PrintJob.last&.ref_no || 0) + 1
     end
+
+    def plate_pricings
+      PlatePricing.all.group_by(&:customer_id).each_with_object({}) do |(k, v), result|
+        result[k] = v.each_with_object({}) do |plate_price, mapping|
+          mapping[plate_price.plate_dimension_id] = plate_price.price
+        end
+      end
+    end
   end
 end

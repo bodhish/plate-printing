@@ -64,15 +64,53 @@
       <div class="text-lg font-semibold"><%= @print_job.name %></div>
       <div class="mt-4 text-sm">Customer Name</div>
       <div class="text-lg font-semibold"><%= @print_job.customer.name %></div>
-      <div class="mt-4 text-sm">Plates</div>
-      <div class="text-lg font-semibold"><%= @print_job.plate_usages.map { |pj| "#{pj.plate_dimension.dimension} (#{pj.plate_dimension.name}) (set: #{pj.set}, color: #{pj.color}, wastage: #{pj.wastage})" }.join(', ') %></div>
       <% if @print_job.comments.present? %>
         <div class="mt-4 text-sm">Comments</div>
         <div class="text-lg font-semibold"><%= @print_job.comments %></div>
       <% end %>
+      <div class="mt-5">
+        <div class="row mt-2 text-xs md:text-base border-b md:font-semibold">
+          <div class="col-2">Plate</div>
+          <div class="col-4">Set xColor</div>
+          <% if current_user.is_admin? %>
+            <div class="col-3">Price/Plate</div>
+            <div class="col-3 text-right">Total</div>
+          <% end %>
+        </div>
+        <% @print_job.plate_usages.each do |pu| %>
+          <div class="row mt-2 text-xs md:text-base">
+            <div class="col-2"><%= pu.plate_dimension.name %></div>
+            <div class="col-4"><%= pu.set %> X <%= pu.color %> = <%= pu.set * pu.color %></div>
+            <% if current_user.is_admin? %>
+            <div class="col-3"><%= pu.price %></div>
+            <div class="col-3 text-right"><%= pu.price * pu.set * pu.color %></div>
+            <% end %>
+          </div>
+        <% end %>
+        <% if current_user.is_admin? %>
+          <div class="row mt-2 border-t text-xs md:text-base ">
+            <div class="col-8"></div>
+            <div class="col-4 text-right text-green-500 font-semibold">QR <%=@print_job.plate_usages.inject(0) { |sum, pj| sum + (pj.set*pj.color*pj.price) }%></div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline px-4" do %>
-    Close
-  <% end %>
+  <div class="flex justify-between">
+    <% prev_id = PrintJob.where('id < ?', @print_job.id).last&.id %>
+    <% next_id = PrintJob.where('id > ?', @print_job.id).first&.id %>
+    <% if prev_id %>
+      <%= link_to print_job_path(prev_id), class: "text-sm py-1 rounded shadow-sm bg-green-500 text-white no-underline hover:no-underline px-4" do %>
+        <i class="material-icons">keyboard_arrow_left</i>
+      <% end %>
+    <% else %><div></div><% end %>
+    <%= link_to root_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline px-4" do %>
+      Close
+    <% end %>
+    <% if next_id %>
+      <%= link_to print_job_path(next_id), class: "text-sm py-1 rounded shadow-sm bg-green-500 text-white no-underline hover:no-underline px-4" do %>
+        <i class="material-icons">keyboard_arrow_right</i>
+      <% end %>
+    <% else %><div></div><% end %>
+  </div>
 </div>
