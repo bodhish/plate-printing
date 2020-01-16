@@ -22,7 +22,7 @@ module CashbookEntries
     end
 
     def amount_classes(amount)
-      amount.negative? ? 'text-green-500' : 'text-red-500'
+      amount.negative? ? 'text-red-500' : 'text-green-500'
     end
 
     private
