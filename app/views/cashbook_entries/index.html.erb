@@ -34,20 +34,20 @@
     </div>
   </div>
 
-  <div class="mb-4 flex items-center justify-between">
+  <div class="mb-4 flex flex-col md:flex-row items-center justify-between">
     <%= bootstrap_form_for(:filter, layout: :inline, url: cashbook_path, method: :get) do |f| %>
       <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
-      <%= f.form_group class: 'md:mr-1 md:w-auto w-full' do %>
+      <%= f.form_group class: 'md:mr-1 md:w-auto w-full mb-2 md:mb-0' do %>
         <%= f.text_field :date_from, hide_label: true, data: date_picker_data, value: presenter.date_from.strftime('%d-%m-%Y'), autocomplete: "off", wrapper: false %>
       <% end %>
-      <%= f.form_group class: 'md:mr-1 md:w-auto w-full' do %>
+      <%= f.form_group class: 'md:mr-1 md:w-auto w-full mb-2 md:mb-0' do %>
         <%= f.text_field :date_to, hide_label: true, data: date_picker_data, value: presenter.date_to.strftime('%d-%m-%Y'), autocomplete: "off", wrapper: false %>
       <% end %>
-      <div class="md:mr-1 md:w-auto w-full flex justify-center">
+      <div class="md:mr-1 md:w-auto w-full flex justify-center mb-2 md:mb-0">
         <%= f.submit 'Filter', class: 'text-sm font-semibold px-8 py-2 rounded shadow-sm bg-blue-700  text-white mr-2', wrapper: false %>
       </div>
     <% end %>
-    <div>
+    <div class="mb-2 md:mb-0">
       <%= button_to new_cashbook_entry_path, method: :get, class: "text-sm px-2 py-1 rounded shadow-sm bg-blue-500 text-white" do %>
         <div class="flex items-center">
           <i class="material-icons pr-1">add</i>
