@@ -7,9 +7,11 @@ end %>
 </div>
 <div class="mt-4 border rounded shadow-lg p-4 bg-white">
   <%= bootstrap_form_for(@cashbook_entry, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
+    <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
     <%= f.text_field :particular, label_class: 'col-form-label', label: 'Particular', required: true, maxlength: 255 %>
     <%= f.number_field :amount, label_class: 'col-form-label', label: 'Amount', required: true, maxlength: 50 %>
     <%= f.select :category_id, categories, { label: "Select a Category", selected: @cashbook_entry.category_id } %>
+    <%= f.text_field :recorded_at, label_class: 'col-form-label', label: 'Recorded At', data: date_picker_data, value: @cashbook_entry.recorded_at.strftime('%d-%m-%Y'), autocomplete: "off", required: true %>
     <%= f.submit "Update", class: 'text-sm px-2 py-1 rounded shadow-sm bg-indigo-500 text-white' %>
     <%= link_to cashbook_path, class: "text-sm px-2 py-1 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
       Cancel

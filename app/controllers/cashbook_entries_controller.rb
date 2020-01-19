@@ -8,7 +8,7 @@ class CashbookEntriesController < HomeController
   end
 
   def create
-    cashbook_entry = CashbookEntry.new(create_params.merge!(recorded_by: current_user, recorded_at: DateTime.now))
+    cashbook_entry = CashbookEntry.new(create_params.merge!(recorded_by: current_user))
     if cashbook_entry.save!
       flash[:success] = 'Cashbook entry created successfully'
       redirect_to cashbook_path
@@ -38,10 +38,10 @@ class CashbookEntriesController < HomeController
   private
 
   def create_params
-    params.require(:cashbook_entry).permit(:particular, :amount, :category_id)
+    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at)
   end
 
   def update_params
-    params.require(:cashbook_entry).permit(:particular, :amount, :category_id)
+    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at)
   end
 end

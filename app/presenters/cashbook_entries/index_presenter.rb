@@ -10,15 +10,15 @@ module CashbookEntries
     end
 
     def opening_balance
-      CashbookEntry.where('created_at < ?', date_from.beginning_of_day).sum(:amount)
+      CashbookEntry.where('recorded_at < ?', date_from.beginning_of_day).sum(:amount)
     end
 
     def closing_balance
-      CashbookEntry.where('created_at < ?', date_to.end_of_day).sum(:amount)
+      CashbookEntry.where('recorded_at < ?', date_to.end_of_day).sum(:amount)
     end
 
     def cashbook_entries
-      @cashbook_entries ||= CashbookEntry.where(created_at: date_window)
+      @cashbook_entries ||= CashbookEntry.where(recorded_at: date_window)
     end
 
     def amount_classes(amount)

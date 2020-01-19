@@ -1,7 +1,7 @@
 <% categories = CashbookCategory.all.map do |c|
   [c.name, c.id]
 end %>
-
+<% recorded_at = Time.zone.now %>
 <div class="my-4 py-4 border rounded shadow-lg p-4 bg-white">
   <div class="font-semibold text-4xl max-w-3xl mx-auto py-4 text-blue-500 flex flex-row justify-between">
     <span>New Cashbook entry</span>
@@ -15,9 +15,11 @@ end %>
   <div class="border-t">
     <div class="max-w-3xl mx-auto mt-4 py-4">
       <%= bootstrap_form_for(@cashbook_entry, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f| %>
+        <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
         <%= f.text_field :particular, label_class: 'col-form-label', label: 'Particular', required: true, maxlength: 255 %>
         <%= f.number_field :amount, label_class: 'col-form-label', label: 'Amount', required: true, maxlength: 50 %>
         <%= f.select :category_id, categories, { label: "Select a Category", selected: @cashbook_entry.category_id } %>
+        <%= f.text_field :recorded_at, label_class: 'col-form-label', label: 'Recorded At', data: date_picker_data, value: recorded_at.strftime('%d-%m-%Y'), autocomplete: "off", required: true%>
         <%= f.submit "Submit", class: 'text-sm px-6 py-2 rounded shadow-sm bg-blue-500 text-white' %>
         <%= link_to cashbook_path, class: "text-sm px-6 py-2 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
           Cancel
