@@ -18,7 +18,7 @@ module CashbookEntries
     end
 
     def cashbook_entries
-      @cashbook_entries ||= CashbookEntry.where(recorded_at: date_window)
+      @cashbook_entries ||= CashbookEntry.where(recorded_at: date_window).order(:recorded_at).reverse
     end
 
     def amount_classes(amount)
