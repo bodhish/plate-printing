@@ -20,6 +20,7 @@ end %>
         <%= f.number_field :amount, label_class: 'col-form-label', label: 'Amount', required: true, maxlength: 50 %>
         <%= f.select :category_id, categories, { label: "Select a Category", selected: @cashbook_entry.category_id } %>
         <%= f.text_field :recorded_at, label_class: 'col-form-label', label: 'Recorded At', data: date_picker_data, value: recorded_at.strftime('%d-%m-%Y'), autocomplete: "off", required: true%>
+        <%= f.text_area :remarks, label_class: 'col-form-label', label: 'Remarks'%>
         <%= f.submit "Submit", class: 'text-sm px-6 py-2 rounded shadow-sm bg-blue-500 text-white' %>
         <%= link_to cashbook_path, class: "text-sm px-6 py-2 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
           Cancel

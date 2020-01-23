@@ -36,7 +36,7 @@
 
   <div class="mb-4 flex flex-col md:flex-row items-center justify-between">
     <%= bootstrap_form_for(:filter, layout: :inline, url: cashbook_path, method: :get) do |f| %>
-      <% date_picker_data = { provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true } %>
+      <% date_picker_data = {provide: 'datepicker', 'date-format': 'dd-mm-yyyy', 'date-autoclose': true, 'date-orientation': 'bottom left', 'date-end-date': "0d", 'date-today-btn': 'linked', 'date-today-highlight': true} %>
       <%= f.form_group class: 'md:mr-1 md:w-auto w-full mb-2 md:mb-0' do %>
         <%= f.text_field :date_from, hide_label: true, data: date_picker_data, value: presenter.date_from.strftime('%d-%m-%Y'), autocomplete: "off", wrapper: false %>
       <% end %>
@@ -56,29 +56,32 @@
       <% end %>
     </div>
   </div>
-
-  <table class="table shadow-sm border-2 table-borderless border-blue-100 shadow-md md:shadow-lg rounded-t-lg rounded-b-l">
-    <thead class="bg-blue-300 text-white md:text-sm text-xs border shadow">
-    <tr>
-      <th scope="col">Entry ID</th>
-      <th scope="col">Particular</th>
-      <th scope="col">Recorded At</th>
-      <th scope="col">Recorded by</th>
-      <th scope="col">Category</th>
-      <th scope="col">Amount</th>
-    </tr>
-    </thead>
-    <tbody class="text-gray-700 md:text-sm text-xs">
-    <% presenter.cashbook_entries.map do |cashbook_entry| %>
+  <div class="overflow-x-auto">
+    <table class="table shadow-sm border-2 table-borderless border-blue-100 shadow-md md:shadow-lg rounded-t-lg rounded-b-l overflow-x-scroll">
+      <thead class="bg-blue-300 text-white md:text-sm text-xs border shadow">
       <tr>
-        <td><%= link_to "##{cashbook_entry.id}", edit_cashbook_entry_path(cashbook_entry), class: 'text-blue-500 underline cursor-pointer' %></td>
-        <td> <%= cashbook_entry.particular %></td>
-        <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
-        <td> <%= cashbook_entry.recorded_by.name %></td>
-        <td> <%= cashbook_entry.category.name %></td>
-        <td class="<%= presenter.amount_classes(cashbook_entry.amount) %>"> <%= cashbook_entry.amount %></td>
+        <th scope="col">Entry ID</th>
+        <th scope="col">Particular</th>
+        <th scope="col">Recorded At</th>
+        <th scope="col">Recorded by</th>
+        <th scope="col">Category</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Remarks</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody class="text-gray-700 md:text-sm text-xs">
+      <% presenter.cashbook_entries.map do |cashbook_entry| %>
+        <tr>
+          <td><%= link_to "##{cashbook_entry.id}", edit_cashbook_entry_path(cashbook_entry), class: 'text-blue-500 underline cursor-pointer' %></td>
+          <td> <%= cashbook_entry.particular %></td>
+          <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
+          <td> <%= cashbook_entry.recorded_by.name %></td>
+          <td> <%= cashbook_entry.category.name %></td>
+          <td class="<%= presenter.amount_classes(cashbook_entry.amount) %>"> <%= cashbook_entry.amount %></td>
+          <td class="w-2/6"> <%= cashbook_entry.remarks %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

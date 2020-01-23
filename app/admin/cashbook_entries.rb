@@ -1,6 +1,6 @@
 ActiveAdmin.register CashbookEntry do
   menu parent: 'Cashbook', label: 'Entries'
-  permit_params :id, :recorded_at, :particular, :amount, :category_id, :recorded_by_id
+  permit_params :id, :recorded_at, :particular, :amount, :category_id, :recorded_by_id, :remarks
 
   index do
     column :particular
@@ -22,6 +22,7 @@ ActiveAdmin.register CashbookEntry do
       f.input :recorded_at
       f.input :category
       f.input :recorded_by
+      f.input :remarks
     end
     f.actions
   end
