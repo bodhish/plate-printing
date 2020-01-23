@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_164735) do
+ActiveRecord::Schema.define(version: 2020_01_23_173706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2020_01_23_164735) do
     t.text "remarks"
     t.index ["category_id"], name: "index_cashbook_entries_on_category_id"
     t.index ["recorded_by_id"], name: "index_cashbook_entries_on_recorded_by_id"
+  end
+
+  create_table "cashbook_entries_color_tags", id: false, force: :cascade do |t|
+    t.bigint "cashbook_entry_id", null: false
+    t.bigint "color_tag_id", null: false
+    t.index ["cashbook_entry_id", "color_tag_id"], name: "index_cashbook_tags"
+    t.index ["color_tag_id", "cashbook_entry_id"], name: "cashbook_index_tags"
+  end
+
+  create_table "color_tags", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "customers", force: :cascade do |t|

@@ -61,6 +61,7 @@
       <thead class="bg-blue-300 text-white md:text-sm text-xs border shadow">
       <tr>
         <th scope="col">Entry ID</th>
+        <th scope="col">Tags</th>
         <th scope="col">Particular</th>
         <th scope="col">Recorded At</th>
         <th scope="col">Recorded by</th>
@@ -73,6 +74,12 @@
       <% presenter.cashbook_entries.map do |cashbook_entry| %>
         <tr>
           <td><%= link_to "##{cashbook_entry.id}", edit_cashbook_entry_path(cashbook_entry), class: 'text-blue-500 underline cursor-pointer' %></td>
+          <td>
+            <% cashbook_entry.color_tags.each do |color| %>
+              <span class="px-2 mr-1 bg-<%= color.name %>-500"></span>
+            <% end %>
+
+          </td>
           <td> <%= cashbook_entry.particular %></td>
           <td> <%= cashbook_entry.recorded_at.strftime("%B %d, %Y") %></td>
           <td> <%= cashbook_entry.recorded_by.name %></td>

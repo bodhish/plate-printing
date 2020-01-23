@@ -38,10 +38,10 @@ class CashbookEntriesController < HomeController
   private
 
   def create_params
-    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at, :remarks)
+    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at, :remarks, color_tag_ids: [])
   end
 
   def update_params
-    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at, :remarks)
+    params.require(:cashbook_entry).permit(:particular, :amount, :category_id, :recorded_at, :remarks, color_tag_ids: [])
   end
 end

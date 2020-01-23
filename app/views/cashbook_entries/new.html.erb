@@ -21,6 +21,18 @@ end %>
         <%= f.select :category_id, categories, { label: "Select a Category", selected: @cashbook_entry.category_id } %>
         <%= f.text_field :recorded_at, label_class: 'col-form-label', label: 'Recorded At', data: date_picker_data, value: recorded_at.strftime('%d-%m-%Y'), autocomplete: "off", required: true%>
         <%= f.text_area :remarks, label_class: 'col-form-label', label: 'Remarks'%>
+        <div>
+          <label class="col-form-label col-sm-3 -ml-4">
+            Tags
+          </label>
+        <%= f.collection_check_boxes_without_bootstrap :color_tag_ids, ColorTag.all, :id, :id do |ct| %>
+          <span>
+            <%= ct.check_box %>
+            <span class="ml-2 px-2 mr-2 bg-<%= ct.object.name %>-500"></span>
+          </span>
+        <% end %>
+        </div>
+        <br/>
         <%= f.submit "Submit", class: 'text-sm px-6 py-2 rounded shadow-sm bg-blue-500 text-white' %>
         <%= link_to cashbook_path, class: "text-sm px-6 py-2 rounded shadow-sm bg-red-400 text-white no-underline hover:no-underline" do %>
           Cancel
