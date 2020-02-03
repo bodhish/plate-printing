@@ -37,8 +37,14 @@
       <div class="flex items-center">
         <% if current_user %>
           <% if current_user.is_admin? %>
+            <a class="mr-4 hidden md:inline-block" href="./">
+              Home
+            </a>
             <a class="mr-4 hidden md:inline-block" href="./admin_dashboard">
               Admin Dashboard
+            </a>
+            <a class="mr-4 hidden md:inline-block" href="./cashbook">
+              Cashbook
             </a>
           <% end %>
           <%= image_tag(current_user.avatar, alt: current_user.name, class: "rounded-full w-12 h-12 mr-2") %>
