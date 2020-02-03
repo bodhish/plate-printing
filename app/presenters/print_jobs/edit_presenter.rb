@@ -12,7 +12,7 @@ module PrintJobs
     end
 
     def customers
-      Customer.all.map do |customer|
+      Customer.all.order(:name).map do |customer|
         [customer.name, customer.id]
       end
     end
