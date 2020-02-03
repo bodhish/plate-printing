@@ -4,6 +4,9 @@
     <a class="mr-4 hidden-md: inline-block btn bg-white border rounded mt-2 -mb-4" href="./admin_dashboard">
       Admin Dashboard
     </a>
+    <a class="mr-4 hidden-md: inline-block btn bg-white border rounded mt-2 -mb-4" href="./cashbook">
+      Cashbook
+    </a>
   </div>
 <% end %>
 <div class="">
@@ -42,7 +45,7 @@
         <div class="text-xs font-semibold"><%= c = presenter.daily_stats[:plates] %> Today
           <% if c > 4 %>
           <span>
-            (<%=c/4%>s<%= (c%4 != 0 ? " + #{c%4}" : "") %>)
+            (<%= c / 4 %>s<%= (c % 4 != 0 ? " + #{c % 4}" : "") %>)
           </span>
           <% end %>
         </div>
@@ -85,6 +88,9 @@
         <%= f.form_group class: 'md:w-auto w-full md:mr-1' do %>
           <%= f.select :customer_id, presenter.customer_dropdown_options, hide_label: true, selected: params[:filter].try(:[], :customer_id), class: 'mr-2', autocomplete: "off", include_blank: "All Customers", wrapper: false %>
         <% end %>
+        <%= f.form_group class: 'md:w-auto w-full md:mr-1' do %>
+          <%= f.number_field :job_id, label_class: 'col-form-label', placeholder: 'Job Id', hide_label: true, required: false, maxlength: 50, value: params[:filter].try(:[], :job_id) %>
+        <% end %>
         <div class="md:mr-1 md:w-auto w-full flex justify-center">
           <%= f.submit 'Filter', class: 'text-sm font-semibold px-8 py-2 rounded shadow-sm bg-blue-700  text-white mr-2', wrapper: false %>
           <%= link_to root_path, class: "text-xs px-2 py-1 rounded shadow-sm bg-blue-700 text-white no-underline hover:no-underline" do %>
@@ -110,6 +116,11 @@
 
   <div>
     <div class="flex flex-col justify-center items-center max-w-5xl mt-2 rounded-lg  shadow-md">
+      <% if presenter.jobs_on_day.blank? %>
+        <div class="py-4 font-semibold text-sm">
+          No job found
+        </div>
+      <% end %>
       <% presenter.jobs_on_day.map do |print_job| %>
         <div class="bg-white flex flex-col md:flex-row justify-between w-full border-b border-gray-200 overflow-hidden px-6 py-2 items-center">
           <div class="w-full md:w-1/3">

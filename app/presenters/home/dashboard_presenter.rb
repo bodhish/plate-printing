@@ -1,7 +1,7 @@
 module Home
   class DashboardPresenter < ::ApplicationPresenter
     def date
-      @date ||= params[:filter].try(:[],:date) ? Time.zone.strptime(params[:filter][:date], '%d-%m-%Y'): Time.zone.now
+      @date ||= params[:filter].try(:[], :date) ? Time.zone.strptime(params[:filter][:date], '%d-%m-%Y') : Time.zone.now
     end
 
     def monthly_stats
@@ -25,7 +25,7 @@ module Home
       target = WeeklyTarget.find_by(start_on: week_start)&.plate_count || 450
 
       plates_used = PlateUsage.joins(:print_job).where(print_job: PrintJob.where(job_on: week_start..(week_start + 6.days))).map { |pj| pj.set * pj.color }.sum
-      percentage_completed = ((plates_used.to_f/target)*100).to_i
+      percentage_completed = ((plates_used.to_f / target) * 100).to_i
 
       {
         target: target,
@@ -38,7 +38,13 @@ module Home
     end
 
     def jobs_on_day
-     @jobs_on_day ||= PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_usages: :plate_dimension).order(created_at: :desc)
+      @jobs_on_day ||= begin
+        if job_id.present?
+          PrintJob.where(id: job_id)
+        else
+          PrintJob.where(customer_id: filtered_customer_ids).where(job_on: date_window).includes(:customer, plate_usages: :plate_dimension).order(created_at: :desc)
+        end
+      end
     end
 
     def customer_dropdown_options
@@ -75,8 +81,12 @@ module Home
       date.beginning_of_month..date.end_of_month
     end
 
+    def job_id
+      @job_id ||= params[:filter].try(:[], :date) ? params[:filter][:job_id] : ""
+    end
+
     def filtered_customer_ids
-      @filtered_customer_ids ||= params[:filter].try(:[],:customer_id).present? ? params[:filter][:customer_id] : Customer.all.pluck(:id)
+      @filtered_customer_ids ||= params[:filter].try(:[], :customer_id).present? ? params[:filter][:customer_id] : Customer.all.pluck(:id)
     end
 
     def prior_saturday(date)
